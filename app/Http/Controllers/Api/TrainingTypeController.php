@@ -50,4 +50,4 @@ class TrainingTypeController extends Controller
         $trainingType->delete();
         return TrainingTypeResource::make($trainingType);
     }
-}
+} 

@@ -23,8 +23,10 @@ public function index()
 public function store(StoreStudentRequest $request)
 {
     $student = new Student();
-    $student->name = $request->name;
-    $student->description = $request->description;
+    $student->publication_id = $request->publication_id;
+    $student->full_name = $request->full_name;
+    $student->postgraduate_scholarship = $request->postgraduate_scholarship;
+    $student->TFG = $request->TFG;
     $student->save();
 
     return StudentResource::make($student);
@@ -38,8 +40,10 @@ public function show($id)
 
 public function update(UpdateStudentRequest $request, Student $student)
 {
-    $student->name = $request->name;
-    $student->description = $request->description;
+    $student->publication_id = $request->publication_id;
+    $student->full_name = $request->full_name;
+    $student->postgraduate_scholarship = $request->postgraduate_scholarship;
+    $student->TFG = $request->TFG;
     $student->save();
 
     return StudentResource::make($student);

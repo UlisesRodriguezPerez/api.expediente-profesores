@@ -10,13 +10,12 @@ use App\Models\ActivityType;
 
 class ActivityTypeController extends Controller
 {
-
     public function index()
     {
         $activityTypes = ActivityType::included()
-                                    ->filter()
-                                    ->sort()
-                                    ->getOrPaginate();
+            ->filter()
+            ->sort()
+            ->getOrPaginate();
         return ActivityTypeResource::collection($activityTypes);
     }
 

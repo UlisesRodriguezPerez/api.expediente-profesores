@@ -8,46 +8,50 @@ use App\Http\Requests\UpdateActivityRequest;
 use App\Http\Resources\ActivityResource;
 use App\Models\Activity;
 
-class ActivityController extends Controller 
+class ActivityController extends Controller
 {
 
-public function index()
-{
-    $activitys = Activity::included()
-                                ->filter()
-                                ->sort()
-                                ->getOrPaginate();
-    return ActivityResource::collection($activitys);
-}
+    public function index()
+    {
+        $activitys = Activity::included()
+            ->filter()
+            ->sort()
+            ->getOrPaginate();
+        return ActivityResource::collection($activitys);
+    }
 
-public function store(StoreActivityRequest $request)
-{
-    $activity = new Activity();
-    $activity->name = $request->name;
-    $activity->description = $request->description;
-    $activity->save();
+    public function store(StoreActivityRequest $request)
+    {
+        $activity = new Activity();
+        $activity->period_id = $request->period_id;
+        $activity->creator_id = $request->creator_id;
+        $activity->involved_id = $request->involved_id;
+        $activity->name = $request->name;
+        $activity->save();
 
-    return ActivityResource::make($activity);
-}
+        return ActivityResource::make($activity);
+    }
 
-public function show($id)
-{
-    $activity = Activity::included()->findOrfail($id);
-    return ActivityResource::make($activity);
-}
+    public function show($id)
+    {
+        $activity = Activity::included()->findOrfail($id);
+        return ActivityResource::make($activity);
+    }
 
-public function update(UpdateActivityRequest $request, Activity $activity)
-{
-    $activity->name = $request->name;
-    $activity->description = $request->description;
-    $activity->save();
+    public function update(UpdateActivityRequest $request, Activity $activity)
+    {
+        $activity->period_id = $request->period_id;
+        $activity->creator_id = $request->creator_id;
+        $activity->involved_id = $request->involved_id;
+        $activity->name = $request->name;
+        $activity->save();
 
-    return ActivityResource::make($activity);
-}
+        return ActivityResource::make($activity);
+    }
 
-public function destroy(Activity $activity)
-{
-    $activity->delete();
-    return ActivityResource::make($activity);
-}
+    public function destroy(Activity $activity)
+    {
+        $activity->delete();
+        return ActivityResource::make($activity);
+    }
 }

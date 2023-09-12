@@ -23,8 +23,9 @@ public function index()
 public function store(StoreInternationalizationRequest $request)
 {
     $internationalization = new Internationalization();
-    $internationalization->name = $request->name;
-    $internationalization->description = $request->description;
+    $internationalization->activity_id = $request->activity_id;
+    $internationalization->activity_type_id = $request->activity_type_id;
+    $internationalization->university_name = $request->university_name;
     $internationalization->save();
 
     return InternationalizationResource::make($internationalization);
@@ -38,8 +39,9 @@ public function show($id)
 
 public function update(UpdateInternationalizationRequest $request, Internationalization $internationalization)
 {
-    $internationalization->name = $request->name;
-    $internationalization->description = $request->description;
+    $internationalization->activity_id = $request->activity_id;
+    $internationalization->activity_type_id = $request->activity_type_id;
+    $internationalization->university_name = $request->university_name;
     $internationalization->save();
 
     return InternationalizationResource::make($internationalization);

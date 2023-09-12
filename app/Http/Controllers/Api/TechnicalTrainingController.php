@@ -23,8 +23,10 @@ class TechnicalTrainingController extends Controller
     public function store(StoreTechnicalTrainingRequest $request)
     {
         $technicalTraining = new TechnicalTraining();
-        $technicalTraining->name = $request->name;
-        $technicalTraining->description = $request->description;
+        $technicalTraining->training_type_id = $request->training_type_id;
+        $technicalTraining->activity_id = $request->activity_id;
+        $technicalTraining->institution_name = $request->institution_name;
+        $technicalTraining->semester_hours = $request->semester_hours;
         $technicalTraining->save();
 
         return TechnicalTrainingResource::make($technicalTraining);
@@ -38,8 +40,10 @@ class TechnicalTrainingController extends Controller
 
     public function update(UpdateTechnicalTrainingRequest $request, TechnicalTraining $technicalTraining)
     {
-        $technicalTraining->name = $request->name;
-        $technicalTraining->description = $request->description;
+        $technicalTraining->training_type_id = $request->training_type_id;
+        $technicalTraining->activity_id = $request->activity_id;
+        $technicalTraining->institution_name = $request->institution_name;
+        $technicalTraining->semester_hours = $request->semester_hours;
         $technicalTraining->save();
 
         return TechnicalTrainingResource::make($technicalTraining);

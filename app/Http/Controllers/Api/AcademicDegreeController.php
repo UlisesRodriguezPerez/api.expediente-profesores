@@ -8,14 +8,14 @@ use App\Http\Requests\UpdateAcademicDegreeRequest;
 use App\Http\Resources\AcademicDegreeResource;
 use App\Models\AcademicDegree;
 
-class AcademicDegreeController extends Controller 
+class AcademicDegreeController extends Controller
 {
     public function index()
     {
         $academicDegrees = AcademicDegree::included()
-                                    ->filter()
-                                    ->sort()
-                                    ->getOrPaginate();
+            ->filter()
+            ->sort()
+            ->getOrPaginate();
         return AcademicDegreeResource::collection($academicDegrees);
     }
 

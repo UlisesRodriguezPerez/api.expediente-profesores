@@ -23,7 +23,7 @@ class WorkUnitAndAdditionalCourseController extends Controller
     public function store(StoreWorkUnitAndAdditionalCourseRequest $request)
     {
         $workUnitAndAdditionalCourse = new WorkUnitAndAdditionalCourse();
-        $workUnitAndAdditionalCourse->name = $request->name;
+        $workUnitAndAdditionalCourse->collaborator_id = $request->collaborator_id;
         $workUnitAndAdditionalCourse->description = $request->description;
         $workUnitAndAdditionalCourse->save();
 
@@ -38,7 +38,7 @@ class WorkUnitAndAdditionalCourseController extends Controller
 
     public function update(UpdateWorkUnitAndAdditionalCourseRequest $request, WorkUnitAndAdditionalCourse $workUnitAndAdditionalCourse)
     {
-        $workUnitAndAdditionalCourse->name = $request->name;
+        $workUnitAndAdditionalCourse->collaborator_id = $request->collaborator_id;
         $workUnitAndAdditionalCourse->description = $request->description;
         $workUnitAndAdditionalCourse->save();
 
