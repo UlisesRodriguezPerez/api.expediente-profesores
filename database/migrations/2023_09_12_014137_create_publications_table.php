@@ -15,8 +15,17 @@ class CreatePublicationsTable extends Migration
     {
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('collaborator_id')->constrained();
+            $table->foreignId('publication_type_id')->constrained();
+            $table->string('publication_name');
+            $table->text('coauthors');
+            $table->text('objectives');
+            $table->text('goals');
+            $table->string('dissemination_medium');
+            $table->boolean('ORCID');
             $table->timestamps();
         });
+        
     }
 
     /**

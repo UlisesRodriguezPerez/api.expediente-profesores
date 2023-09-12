@@ -13,10 +13,13 @@ class CreateWorkUnitAndAdditionalCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('work_unit_and_additional_courses', function (Blueprint $table) {
+        Schema::create('work_units_and_additional_courses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('collaborator_id')->constrained('collaborators');
+            $table->string('description');
             $table->timestamps();
         });
+        
     }
 
     /**

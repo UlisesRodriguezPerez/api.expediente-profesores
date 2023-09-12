@@ -15,8 +15,13 @@ class CreateTechnicalTrainingsTable extends Migration
     {
         Schema::create('technical_trainings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('training_type_id')->constrained('training_types'); // Assuming the training_type table is named 'training_types'
+            $table->foreignId('activity_id')->constrained();
+            $table->string('institution_name');
+            $table->integer('semester_hours');
             $table->timestamps();
         });
+        
     }
 
     /**

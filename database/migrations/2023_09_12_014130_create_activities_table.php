@@ -15,8 +15,13 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('period_id')->constrained();
+            $table->foreignId('creator_id')->constrained('collaborators');
+            $table->foreignId('involved_id')->constrained('collaborators');
+            $table->string('name');
             $table->timestamps();
         });
+        
     }
 
     /**

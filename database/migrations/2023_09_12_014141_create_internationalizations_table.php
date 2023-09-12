@@ -15,8 +15,13 @@ class CreateInternationalizationsTable extends Migration
     {
         Schema::create('internationalizations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('activity_id')->constrained();
+            $table->foreignId('activity_type_id')->constrained();
+            $table->string('university_name');
             $table->timestamps();
         });
+        
+        
     }
 
     /**

@@ -15,6 +15,8 @@ class CreateAcademicDegreesTable extends Migration
     {
         Schema::create('academic_degrees', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
         });
     }

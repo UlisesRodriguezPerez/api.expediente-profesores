@@ -15,8 +15,14 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('publication_id')->constrained();
+            $table->string('full_name');
+            $table->boolean('postgraduate_scholarship');
+            $table->boolean('TFG');
             $table->timestamps();
         });
+        
+        
     }
 
     /**
