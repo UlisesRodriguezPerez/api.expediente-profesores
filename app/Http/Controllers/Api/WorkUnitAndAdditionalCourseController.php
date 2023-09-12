@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\WorkUnitAndAdditionalCourse;
 use App\Http\Requests\StoreWorkUnitAndAdditionalCourseRequest;
 use App\Http\Requests\UpdateWorkUnitAndAdditionalCourseRequest;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Internationalization;
 use App\Http\Requests\StoreInternationalizationRequest;
 use App\Http\Requests\UpdateInternationalizationRequest;

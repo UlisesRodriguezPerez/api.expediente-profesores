@@ -1,24 +1,25 @@
 <?php
 
-use App\Http\Controllers\AcademicDegreeController;
-use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\ActivityTypeController;
-use App\Http\Controllers\AppointmentTypeController;
-use App\Http\Controllers\CampusController;
-use App\Http\Controllers\CollaboratorController;
-use App\Http\Controllers\InternationalizationController;
-use App\Http\Controllers\PedagogicalTrainingController;
-use App\Http\Controllers\PeriodController;
-use App\Http\Controllers\PositionController;
-use App\Http\Controllers\PublicationController;
-use App\Http\Controllers\PublicationTypeController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\RoleUserController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TecCategoryController;
-use App\Http\Controllers\TechnicalTrainingController;
-use App\Http\Controllers\TrainingTypeController;
-use App\Http\Controllers\WorkUnitAndAdditionalCourseController;
+use App\Http\Controllers\Api\AcademicDegreeController;
+use App\Http\Controllers\Api\ActivityController;
+use App\Http\Controllers\Api\ActivityTypeController;
+use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\AppointmentTypeController;
+use App\Http\Controllers\Api\CampusController;
+use App\Http\Controllers\Api\CollaboratorController;
+use App\Http\Controllers\Api\InternationalizationController;
+use App\Http\Controllers\Api\PedagogicalTrainingController;
+use App\Http\Controllers\Api\PeriodController;
+use App\Http\Controllers\Api\PositionController;
+use App\Http\Controllers\Api\PublicationController;
+use App\Http\Controllers\Api\PublicationTypeController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\RoleUserController;
+use App\Http\Controllers\Api\StudentController;
+use App\Http\Controllers\Api\TecCategoryController;
+use App\Http\Controllers\Api\TechnicalTrainingController;
+use App\Http\Controllers\Api\TrainingTypeController;
+use App\Http\Controllers\Api\WorkUnitAndAdditionalCourseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,3 +59,5 @@ Route::apiResource('roles', RoleController::class);
 Route::apiResource('role-users', RoleUserController::class);
 Route::apiResource('pedagogical-trainings', PedagogicalTrainingController::class);
 Route::apiResource('work-units-and-additional-courses', WorkUnitAndAdditionalCourseController::class);
+
+Route::post('register', [RegisterController::class, 'store'])->name('api.v1.register.store');

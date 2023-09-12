@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\TecCategory;
 use App\Http\Requests\StoreTecCategoryRequest;
 use App\Http\Requests\UpdateTecCategoryRequest;

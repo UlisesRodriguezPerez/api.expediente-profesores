@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\TechnicalTraining;
 use App\Http\Requests\StoreTechnicalTrainingRequest;
 use App\Http\Requests\UpdateTechnicalTrainingRequest;
