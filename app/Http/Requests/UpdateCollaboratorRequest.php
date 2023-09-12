@@ -13,7 +13,7 @@ class UpdateCollaboratorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class UpdateCollaboratorRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user_id' => 'required|exists:users,id',
+            'position_id' => 'required|exists:positions,id',
+            'category_id' => 'required|exists:tec_categories,id',
+            'appointment_id' => 'required|exists:appointment_types,id',
+            'degree_id' => 'required|exists:academic_degrees,id',
+            'campus_id' => 'required|exists:campuses,id',
         ];
     }
 }

@@ -13,7 +13,7 @@ class UpdateCampusRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,11 @@ class UpdateCampusRequest extends FormRequest
      */
     public function rules()
     {
+        $campus = $this->route('campus');
         return [
-            //
+            'name' => 'required|string|max:255|unique:campuses,name,' . $campus->id,
+            'description' => 'required|string',
+            'acronym' => 'required|string|max:10|unique:campuses,acronym,' . $campus->id,
         ];
     }
 }

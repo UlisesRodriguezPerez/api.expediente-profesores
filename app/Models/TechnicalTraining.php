@@ -13,6 +13,10 @@ class TechnicalTraining extends Model
 
     protected $fillable = ['activity_id', 'training_type_id', 'hours', 'objective'];
 
+    protected $allowIncluded = ['activity', 'training_type'];
+
+    protected $allowFilter = ['objective', 'activity_id', 'training_type_id', 'hours'];
+
     public function activity()
     {
         return $this->belongsTo(Activity::class);

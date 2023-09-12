@@ -13,7 +13,7 @@ class UpdateTechnicalTrainingRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateTechnicalTrainingRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'training_type_id' => 'required|exists:training_types,id',
+            'activity_id' => 'required|exists:activities,id',
+            'institution_name' => 'required|string|max:255',
+            'semester_hours' => 'required|integer',
         ];
     }
 }

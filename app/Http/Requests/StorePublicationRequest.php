@@ -13,7 +13,7 @@ class StorePublicationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class StorePublicationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'collaborator_id' => 'required|exists:collaborators,id',
+            'publication_type_id' => 'required|exists:publication_types,id',
+            'name' => 'required|string|max:255',
+            'coauthors' => 'required|string',
+            'objectives' => 'required|string',
+            'goals' => 'required|string',
+            'dissemination_medium' => 'required|string|max:255',
+            'ORCID' => 'required|boolean',
         ];
     }
 }

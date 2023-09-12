@@ -13,6 +13,10 @@ class AcademicDegree extends Model
 
     protected $fillable = ['name', 'description'];
 
+    protected $allowIncluded = ['collaborators'];
+
+    protected $allowFilter = ['name'];
+
     public function collaborators()
     {
         return $this->hasMany(Collaborator::class, 'degree_id');

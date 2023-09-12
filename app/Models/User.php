@@ -29,6 +29,10 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $allowIncluded = ['collaborator', 'roles'];
+
+    protected $allowFilter = ['name', 'last_name', 'second_last_name', 'phone', 'email'];
+
     /**
      * The attributes that should be hidden for serialization.
      *

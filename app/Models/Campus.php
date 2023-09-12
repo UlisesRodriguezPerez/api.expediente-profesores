@@ -13,6 +13,10 @@ class Campus extends Model
 
     protected $fillable = ['name', 'description', 'acronym'];
 
+    protected $allowIncluded = ['collaborators'];
+
+    protected $allowFilter = ['name', 'description', 'acronym'];
+
     public function collaborators()
     {
         return $this->hasMany(Collaborator::class);

@@ -16,6 +16,10 @@ class TrainingType extends Model
         'description'
     ];
 
+    protected $allowIncluded = ['technical_trainings'];
+
+    protected $allowFilter = ['name', 'description'];
+
     public function technicalTrainings()
     {
         return $this->hasMany(TechnicalTraining::class);

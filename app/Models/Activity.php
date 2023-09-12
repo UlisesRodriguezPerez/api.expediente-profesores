@@ -13,6 +13,10 @@ class Activity extends Model
 
     protected $fillable = ['period_id', 'creator_id', 'involved_id', 'name'];
 
+    protected $allowIncluded = ['period', 'creator', 'involved', 'internationalization', 'technical_training', 'pedagogical_training'];
+
+    protected $allowFilter = ['name'];
+
     public function period()
     {
         return $this->belongsTo(Period::class);

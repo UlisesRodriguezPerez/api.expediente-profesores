@@ -11,7 +11,11 @@ class Period extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['creator_id', 'period_name', 'start_date', 'end_date'];
+    protected $fillable = ['creator_id', 'name', 'start_date', 'end_date'];
+
+    protected $allowIncluded = ['creator', 'activities'];
+
+    protected $allowFilter = ['name', 'start_date', 'end_date', 'creator_id'];
 
     public function creator()
     {

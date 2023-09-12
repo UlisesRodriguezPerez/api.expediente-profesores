@@ -13,7 +13,7 @@ class StoreAppointmentTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreAppointmentTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:255|unique:appointment_types,name',
+            'description' => 'required|string',
         ];
     }
 }

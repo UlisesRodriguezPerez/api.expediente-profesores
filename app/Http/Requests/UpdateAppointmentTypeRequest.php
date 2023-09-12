@@ -13,7 +13,7 @@ class UpdateAppointmentTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,10 @@ class UpdateAppointmentTypeRequest extends FormRequest
      */
     public function rules()
     {
+        $appointmentType = $this->route('appointment_type');
         return [
-            //
+            'name' => 'required|string|max:255|unique:appointment_types,name,' . $appointmentType->id,
+            'description' => 'required|string',
         ];
     }
 }

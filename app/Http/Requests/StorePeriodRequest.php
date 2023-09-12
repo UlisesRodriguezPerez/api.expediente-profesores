@@ -13,7 +13,7 @@ class StorePeriodRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StorePeriodRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'creator_id' => 'required|exists:collaborators,id',
+            'name' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
         ];
     }
 }

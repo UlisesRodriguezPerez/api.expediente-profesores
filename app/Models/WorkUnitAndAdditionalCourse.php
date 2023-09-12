@@ -13,6 +13,10 @@ class WorkUnitAndAdditionalCourse extends Model
 
     protected $fillable = ['collaborator_id', 'name', 'description'];
 
+    protected $allowIncluded = ['collaborator'];
+
+    protected $allowFilter = ['name', 'description', 'collaborator_id'];
+
     public function collaborator()
     {
         return $this->belongsTo(Collaborator::class);

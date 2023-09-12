@@ -23,10 +23,10 @@ class UpdateActivityTypeRequest extends FormRequest
      */
     public function rules()
     {
-        $activityType = $this->route('activity_type');
+        $activityType = $this->route('activityType');
         return [
             'name' => 'required|string|max:255|unique:activity_types,name,' . $activityType->id,
-            'description' => 'required|string'
+            'description' => 'nullable|string',
         ];
     }
 }

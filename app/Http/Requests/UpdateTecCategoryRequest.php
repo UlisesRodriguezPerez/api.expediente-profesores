@@ -13,7 +13,7 @@ class UpdateTecCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,10 @@ class UpdateTecCategoryRequest extends FormRequest
      */
     public function rules()
     {
+        $tecCategory = $this->route('tec_category');
         return [
-            //
+            'name' => 'required|string|max:255|unique:tec_categories,name,' . $tecCategory->id,
+            'description' => 'required|string',
         ];
     }
 }

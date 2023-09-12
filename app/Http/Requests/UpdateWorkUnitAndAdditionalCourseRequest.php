@@ -13,7 +13,7 @@ class UpdateWorkUnitAndAdditionalCourseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateWorkUnitAndAdditionalCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'collaborator_id' => 'required|exists:collaborators,id',
+            'description' => 'required|string',
         ];
     }
 }

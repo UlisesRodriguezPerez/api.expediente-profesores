@@ -13,7 +13,7 @@ class UpdateAcademicDegreeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,10 @@ class UpdateAcademicDegreeRequest extends FormRequest
      */
     public function rules()
     {
+        $academicDegree = $this->route('academic_degree');
         return [
-            //
+            'name' => 'required|string|max:255|unique:academic_degrees,name,' . $academicDegree->id,
+            'description' => 'required|string',
         ];
     }
 }

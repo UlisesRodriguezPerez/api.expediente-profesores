@@ -17,7 +17,7 @@ class CreatePublicationsTable extends Migration
             $table->id();
             $table->foreignId('collaborator_id')->constrained();
             $table->foreignId('publication_type_id')->constrained();
-            $table->string('publication_name');
+            $table->string('name');
             $table->text('coauthors');
             $table->text('objectives');
             $table->text('goals');

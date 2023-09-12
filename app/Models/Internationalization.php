@@ -13,6 +13,10 @@ class Internationalization extends Model
 
     protected $fillable = ['activity_id', 'activity_type_id', 'objective'];
 
+    protected $allowIncluded = ['activity', 'activity_type'];
+
+    protected $allowFilter = ['objective', 'activity_id', 'activity_type_id'];
+
     public function activity()
     {
         return $this->belongsTo(Activity::class);

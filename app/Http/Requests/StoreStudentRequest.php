@@ -13,7 +13,7 @@ class StoreStudentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'publication_id' => 'required|exists:publications,id',
+            'full_name' => 'required|string|max:255',
+            'postgraduate_scholarship' => 'required|boolean',
+            'TFG' => 'required|boolean',
         ];
     }
 }

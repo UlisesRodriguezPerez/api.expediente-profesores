@@ -13,7 +13,7 @@ class UpdatePublicationTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,10 @@ class UpdatePublicationTypeRequest extends FormRequest
      */
     public function rules()
     {
+        $publicationType = $this->route('publicationType');
         return [
-            //
+            'name' => 'required|string|max:255|unique:publication_types,name,' . $publicationType->id,
+            'description' => 'nullable|string',
         ];
     }
 }

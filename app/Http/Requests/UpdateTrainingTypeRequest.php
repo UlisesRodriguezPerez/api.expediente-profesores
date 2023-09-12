@@ -13,7 +13,7 @@ class UpdateTrainingTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,10 @@ class UpdateTrainingTypeRequest extends FormRequest
      */
     public function rules()
     {
+        $trainingType = $this->route('training_type');
         return [
-            //
+            'name' => 'required|string|max:255|unique:training_types,name,' . $trainingType->id,
+            'description' => 'required|string',
         ];
     }
 }

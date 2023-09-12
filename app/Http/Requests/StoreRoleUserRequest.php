@@ -13,7 +13,7 @@ class StoreRoleUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreRoleUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'role_id' => 'required|exists:roles,id',
+            'user_id' => 'required|exists:users,id|unique:role_user,user_id,NULL,id,role_id,' . $this->role_id,
         ];
     }
 }

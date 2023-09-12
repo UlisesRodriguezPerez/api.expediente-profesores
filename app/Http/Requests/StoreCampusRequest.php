@@ -13,7 +13,7 @@ class StoreCampusRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreCampusRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:255|unique:campuses,name',
+            'description' => 'required|string',
+            'acronym' => 'required|string|max:10|unique:campuses,acronym',
         ];
     }
 }

@@ -13,6 +13,10 @@ class PublicationType extends Model
 
     protected $fillable = ['name', 'description'];
 
+    protected $allowIncluded = ['publications'];
+
+    protected $allowFilter = ['name', 'description'];
+
     public function publications()
     {
         return $this->hasMany(Publication::class);

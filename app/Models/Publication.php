@@ -14,12 +14,25 @@ class Publication extends Model
     protected $fillable = [
         'collaborator_id',
         'publication_type_id',
-        'publication_name',
+        'name',
         'coauthors',
         'objectives',
         'goals',
         'dissemination_medium',
         'ORCID'
+    ];
+
+    protected $allowIncluded = ['collaborator', 'publication_type', 'students'];
+
+    protected $allowFilter = [
+        'name',
+        'coauthors',
+        'objectives',
+        'goals',
+        'dissemination_medium',
+        'ORCID',
+        'collaborator_id',
+        'publication_type_id'
     ];
 
     public function collaborator()

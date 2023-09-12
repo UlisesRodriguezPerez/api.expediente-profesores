@@ -13,7 +13,7 @@ class StoreInternationalizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreInternationalizationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'activity_id' => 'required|exists:activities,id',
+            'activity_type_id' => 'required|exists:activity_types,id',
+            'university_name' => 'required|string|max:255',
         ];
     }
 }

@@ -13,7 +13,7 @@ class StorePedagogicalTrainingRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StorePedagogicalTrainingRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'activity_id' => 'required|exists:activities,id',
+            'institution_name' => 'required|string|max:255',
         ];
     }
 }

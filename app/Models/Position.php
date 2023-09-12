@@ -13,6 +13,10 @@ class Position extends Model
 
     protected $fillable = ['name', 'description'];
 
+    protected $allowIncluded = ['collaborators'];
+
+    protected $allowFilter = ['name', 'description'];
+
     public function collaborators()
     {
         return $this->hasMany(Collaborator::class);

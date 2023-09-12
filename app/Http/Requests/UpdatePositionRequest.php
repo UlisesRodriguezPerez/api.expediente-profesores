@@ -13,7 +13,7 @@ class UpdatePositionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,10 @@ class UpdatePositionRequest extends FormRequest
      */
     public function rules()
     {
+        $position = $this->route('position');
         return [
-            //
+            'name' => 'required|string|max:255|unique:positions,name,' . $position->id,
+            'description' => 'required|string',
         ];
     }
 }

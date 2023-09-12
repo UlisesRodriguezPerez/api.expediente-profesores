@@ -13,6 +13,10 @@ class PedagogicalTraining extends Model
 
     protected $fillable = ['activity_id', 'hours', 'objective'];
 
+    protected $allowIncluded = ['activity'];
+
+    protected $allowFilter = ['hours', 'objective', 'activity_id'];
+
     public function activity()
     {
         return $this->belongsTo(Activity::class);

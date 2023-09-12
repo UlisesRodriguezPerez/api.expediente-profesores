@@ -13,7 +13,7 @@ class StoreTecCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreTecCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:255|unique:tec_categories,name',
+            'description' => 'required|string',
         ];
     }
 }
