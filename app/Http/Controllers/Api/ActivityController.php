@@ -2,86 +2,52 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Activity;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActivityRequest;
 use App\Http\Requests\UpdateActivityRequest;
+use App\Http\Resources\ActivityResource;
+use App\Models\Activity;
 
-class ActivityController extends Controller
+class ActivityController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+public function index()
+{
+    $activitys = Activity::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
+    return ActivityResource::collection($activitys);
+}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreActivityRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreActivityRequest $request)
-    {
-        //
-    }
+public function store(StoreActivityRequest $request)
+{
+    $activity = new Activity();
+    $activity->name = $request->name;
+    $activity->description = $request->description;
+    $activity->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Activity $activity)
-    {
-        //
-    }
+    return ActivityResource::make($activity);
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Activity $activity)
-    {
-        //
-    }
+public function show($id)
+{
+    $activity = Activity::included()->findOrfail($id);
+    return ActivityResource::make($activity);
+}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateActivityRequest  $request
-     * @param  \App\Activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateActivityRequest $request, Activity $activity)
-    {
-        //
-    }
+public function update(UpdateActivityRequest $request, Activity $activity)
+{
+    $activity->name = $request->name;
+    $activity->description = $request->description;
+    $activity->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Activity  $activity
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Activity $activity)
-    {
-        //
-    }
+    return ActivityResource::make($activity);
+}
+
+public function destroy(Activity $activity)
+{
+    $activity->delete();
+    return ActivityResource::make($activity);
+}
 }

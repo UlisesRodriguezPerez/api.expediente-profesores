@@ -6,82 +6,48 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Http\Resources\RoleResource;
 
-class RoleController extends Controller
+class RoleController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+public function index()
+{
+    $roles = Role::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
+    return RoleResource::collection($roles);
+}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreRoleRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreRoleRequest $request)
-    {
-        //
-    }
+public function store(StoreRoleRequest $request)
+{
+    $role = new Role();
+    $role->name = $request->name;
+    $role->description = $request->description;
+    $role->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
-    {
-        //
-    }
+    return RoleResource::make($role);
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Role $role)
-    {
-        //
-    }
+public function show($id)
+{
+    $role = Role::included()->findOrfail($id);
+    return RoleResource::make($role);
+}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateRoleRequest  $request
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateRoleRequest $request, Role $role)
-    {
-        //
-    }
+public function update(UpdateRoleRequest $request, Role $role)
+{
+    $role->name = $request->name;
+    $role->description = $request->description;
+    $role->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
-    {
-        //
-    }
+    return RoleResource::make($role);
+}
+
+public function destroy(Role $role)
+{
+    $role->delete();
+    return RoleResource::make($role);
+}
 }

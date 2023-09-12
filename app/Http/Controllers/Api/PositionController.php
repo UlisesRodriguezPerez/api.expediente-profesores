@@ -6,82 +6,48 @@ use App\Http\Controllers\Controller;
 use App\Models\Position;
 use App\Http\Requests\StorePositionRequest;
 use App\Http\Requests\UpdatePositionRequest;
+use App\Http\Resources\PositionResource;
 
-class PositionController extends Controller
+class PositionController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+public function index()
+{
+    $positions = Position::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
+    return PositionResource::collection($positions);
+}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePositionRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePositionRequest $request)
-    {
-        //
-    }
+public function store(StorePositionRequest $request)
+{
+    $position = new Position();
+    $position->name = $request->name;
+    $position->description = $request->description;
+    $position->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Position $position)
-    {
-        //
-    }
+    return PositionResource::make($position);
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Position $position)
-    {
-        //
-    }
+public function show($id)
+{
+    $position = Position::included()->findOrfail($id);
+    return PositionResource::make($position);
+}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePositionRequest  $request
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePositionRequest $request, Position $position)
-    {
-        //
-    }
+public function update(UpdatePositionRequest $request, Position $position)
+{
+    $position->name = $request->name;
+    $position->description = $request->description;
+    $position->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Position $position)
-    {
-        //
-    }
+    return PositionResource::make($position);
+}
+
+public function destroy(Position $position)
+{
+    $position->delete();
+    return PositionResource::make($position);
+}
 }

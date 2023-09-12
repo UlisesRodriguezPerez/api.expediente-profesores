@@ -6,82 +6,48 @@ use App\Http\Controllers\Controller;
 use App\Models\PedagogicalTraining;
 use App\Http\Requests\StorePedagogicalTrainingRequest;
 use App\Http\Requests\UpdatePedagogicalTrainingRequest;
+use App\Http\Resources\PedagogicalTrainingResource;
 
-class PedagogicalTrainingController extends Controller
+class PedagogicalTrainingController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+public function index()
+{
+    $pedagogicalTrainings = PedagogicalTraining::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
+    return PedagogicalTrainingResource::collection($pedagogicalTrainings);
+}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePedagogicalTrainingRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePedagogicalTrainingRequest $request)
-    {
-        //
-    }
+public function store(StorePedagogicalTrainingRequest $request)
+{
+    $pedagogicalTraining = new PedagogicalTraining();
+    $pedagogicalTraining->name = $request->name;
+    $pedagogicalTraining->description = $request->description;
+    $pedagogicalTraining->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PedagogicalTraining  $pedagogicalTraining
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PedagogicalTraining $pedagogicalTraining)
-    {
-        //
-    }
+    return PedagogicalTrainingResource::make($pedagogicalTraining);
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\PedagogicalTraining  $pedagogicalTraining
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PedagogicalTraining $pedagogicalTraining)
-    {
-        //
-    }
+public function show($id)
+{
+    $pedagogicalTraining = PedagogicalTraining::included()->findOrfail($id);
+    return PedagogicalTrainingResource::make($pedagogicalTraining);
+}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePedagogicalTrainingRequest  $request
-     * @param  \App\PedagogicalTraining  $pedagogicalTraining
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePedagogicalTrainingRequest $request, PedagogicalTraining $pedagogicalTraining)
-    {
-        //
-    }
+public function update(UpdatePedagogicalTrainingRequest $request, PedagogicalTraining $pedagogicalTraining)
+{
+    $pedagogicalTraining->name = $request->name;
+    $pedagogicalTraining->description = $request->description;
+    $pedagogicalTraining->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\PedagogicalTraining  $pedagogicalTraining
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PedagogicalTraining $pedagogicalTraining)
-    {
-        //
-    }
+    return PedagogicalTrainingResource::make($pedagogicalTraining);
+}
+
+public function destroy(PedagogicalTraining $pedagogicalTraining)
+{
+    $pedagogicalTraining->delete();
+    return PedagogicalTrainingResource::make($pedagogicalTraining);
+}
 }

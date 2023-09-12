@@ -6,82 +6,48 @@ use App\Http\Controllers\Controller;
 use App\Models\TrainingType;
 use App\Http\Requests\StoreTrainingTypeRequest;
 use App\Http\Requests\UpdateTrainingTypeRequest;
+use App\Http\Resources\TrainingTypeResource;
 
 class TrainingTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $trainingTypes = TrainingType::included()
+            ->filter()
+            ->sort()
+            ->getOrPaginate();
+        return TrainingTypeResource::collection($trainingTypes);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTrainingTypeRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreTrainingTypeRequest $request)
     {
-        //
+        $trainingType = new TrainingType();
+        $trainingType->name = $request->name;
+        $trainingType->description = $request->description;
+        $trainingType->save();
+
+        return TrainingTypeResource::make($trainingType);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\TrainingType  $trainingType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TrainingType $trainingType)
+    public function show($id)
     {
-        //
+        $trainingType = TrainingType::included()->findOrfail($id);
+        return TrainingTypeResource::make($trainingType);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\TrainingType  $trainingType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TrainingType $trainingType)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTrainingTypeRequest  $request
-     * @param  \App\TrainingType  $trainingType
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateTrainingTypeRequest $request, TrainingType $trainingType)
     {
-        //
+        $trainingType->name = $request->name;
+        $trainingType->description = $request->description;
+        $trainingType->save();
+
+        return TrainingTypeResource::make($trainingType);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\TrainingType  $trainingType
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(TrainingType $trainingType)
     {
-        //
+        $trainingType->delete();
+        return TrainingTypeResource::make($trainingType);
     }
 }

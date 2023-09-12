@@ -6,82 +6,48 @@ use App\Http\Controllers\Controller;
 use App\Models\TecCategory;
 use App\Http\Requests\StoreTecCategoryRequest;
 use App\Http\Requests\UpdateTecCategoryRequest;
+use App\Http\Resources\TecCategoryResource;
 
-class TecCategoryController extends Controller
+class TecCategoryController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+public function index()
+{
+    $tecCategorys = TecCategory::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
+    return TecCategoryResource::collection($tecCategorys);
+}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTecCategoryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreTecCategoryRequest $request)
-    {
-        //
-    }
+public function store(StoreTecCategoryRequest $request)
+{
+    $tecCategory = new TecCategory();
+    $tecCategory->name = $request->name;
+    $tecCategory->description = $request->description;
+    $tecCategory->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\TecCategory  $tecCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(TecCategory $tecCategory)
-    {
-        //
-    }
+    return TecCategoryResource::make($tecCategory);
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\TecCategory  $tecCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(TecCategory $tecCategory)
-    {
-        //
-    }
+public function show($id)
+{
+    $tecCategory = TecCategory::included()->findOrfail($id);
+    return TecCategoryResource::make($tecCategory);
+}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTecCategoryRequest  $request
-     * @param  \App\TecCategory  $tecCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateTecCategoryRequest $request, TecCategory $tecCategory)
-    {
-        //
-    }
+public function update(UpdateTecCategoryRequest $request, TecCategory $tecCategory)
+{
+    $tecCategory->name = $request->name;
+    $tecCategory->description = $request->description;
+    $tecCategory->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\TecCategory  $tecCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(TecCategory $tecCategory)
-    {
-        //
-    }
+    return TecCategoryResource::make($tecCategory);
+}
+
+public function destroy(TecCategory $tecCategory)
+{
+    $tecCategory->delete();
+    return TecCategoryResource::make($tecCategory);
+}
 }

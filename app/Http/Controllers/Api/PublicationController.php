@@ -6,82 +6,48 @@ use App\Http\Controllers\Controller;
 use App\Models\Publication;
 use App\Http\Requests\StorePublicationRequest;
 use App\Http\Requests\UpdatePublicationRequest;
+use App\Http\Resources\PublicationResource;
 
-class PublicationController extends Controller
+class PublicationController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+public function index()
+{
+    $publications = Publication::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
+    return PublicationResource::collection($publications);
+}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePublicationRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePublicationRequest $request)
-    {
-        //
-    }
+public function store(StorePublicationRequest $request)
+{
+    $publication = new Publication();
+    $publication->name = $request->name;
+    $publication->description = $request->description;
+    $publication->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Publication  $publication
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Publication $publication)
-    {
-        //
-    }
+    return PublicationResource::make($publication);
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Publication  $publication
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Publication $publication)
-    {
-        //
-    }
+public function show($id)
+{
+    $publication = Publication::included()->findOrfail($id);
+    return PublicationResource::make($publication);
+}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePublicationRequest  $request
-     * @param  \App\Publication  $publication
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePublicationRequest $request, Publication $publication)
-    {
-        //
-    }
+public function update(UpdatePublicationRequest $request, Publication $publication)
+{
+    $publication->name = $request->name;
+    $publication->description = $request->description;
+    $publication->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Publication  $publication
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Publication $publication)
-    {
-        //
-    }
+    return PublicationResource::make($publication);
+}
+
+public function destroy(Publication $publication)
+{
+    $publication->delete();
+    return PublicationResource::make($publication);
+}
 }

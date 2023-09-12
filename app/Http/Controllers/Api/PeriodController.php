@@ -6,82 +6,48 @@ use App\Http\Controllers\Controller;
 use App\Models\Period;
 use App\Http\Requests\StorePeriodRequest;
 use App\Http\Requests\UpdatePeriodRequest;
+use App\Http\Resources\PeriodResource;
 
-class PeriodController extends Controller
+class PeriodController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+public function index()
+{
+    $periods = Period::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
+    return PeriodResource::collection($periods);
+}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePeriodRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePeriodRequest $request)
-    {
-        //
-    }
+public function store(StorePeriodRequest $request)
+{
+    $period = new Period();
+    $period->name = $request->name;
+    $period->description = $request->description;
+    $period->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Period $period)
-    {
-        //
-    }
+    return PeriodResource::make($period);
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Period $period)
-    {
-        //
-    }
+public function show($id)
+{
+    $period = Period::included()->findOrfail($id);
+    return PeriodResource::make($period);
+}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePeriodRequest  $request
-     * @param  \App\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePeriodRequest $request, Period $period)
-    {
-        //
-    }
+public function update(UpdatePeriodRequest $request, Period $period)
+{
+    $period->name = $request->name;
+    $period->description = $request->description;
+    $period->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Period  $period
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Period $period)
-    {
-        //
-    }
+    return PeriodResource::make($period);
+}
+
+public function destroy(Period $period)
+{
+    $period->delete();
+    return PeriodResource::make($period);
+}
 }

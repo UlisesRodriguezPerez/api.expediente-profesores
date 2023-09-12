@@ -6,82 +6,48 @@ use App\Http\Controllers\Controller;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Resources\StudentResource;
 
-class StudentController extends Controller
+class StudentController extends Controller 
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+public function index()
+{
+    $students = Student::included()
+                                ->filter()
+                                ->sort()
+                                ->getOrPaginate();
+    return StudentResource::collection($students);
+}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreStudentRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreStudentRequest $request)
-    {
-        //
-    }
+public function store(StoreStudentRequest $request)
+{
+    $student = new Student();
+    $student->name = $request->name;
+    $student->description = $request->description;
+    $student->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Student $student)
-    {
-        //
-    }
+    return StudentResource::make($student);
+}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Student $student)
-    {
-        //
-    }
+public function show($id)
+{
+    $student = Student::included()->findOrfail($id);
+    return StudentResource::make($student);
+}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateStudentRequest  $request
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateStudentRequest $request, Student $student)
-    {
-        //
-    }
+public function update(UpdateStudentRequest $request, Student $student)
+{
+    $student->name = $request->name;
+    $student->description = $request->description;
+    $student->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Student $student)
-    {
-        //
-    }
+    return StudentResource::make($student);
+}
+
+public function destroy(Student $student)
+{
+    $student->delete();
+    return StudentResource::make($student);
+}
 }
