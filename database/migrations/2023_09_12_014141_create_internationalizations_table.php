@@ -19,6 +19,7 @@ class CreateInternationalizationsTable extends Migration
             $table->foreignId('activity_type_id')->constrained();
             $table->string('university_name');
             $table->timestamps();
+            $table->softDeletes();
         });
         
         

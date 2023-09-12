@@ -13,7 +13,7 @@ class StoreActivityTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true; // here we allow everyone to create an activity type, but we will check in the controller if the user is allowed to do so
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreActivityTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:255|unique:activity_types,name',
+            'description' => 'required|string',
         ];
     }
 }

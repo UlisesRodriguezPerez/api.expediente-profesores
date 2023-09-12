@@ -15,9 +15,10 @@ class CreatePublicationTypesTable extends Migration
     {
         Schema::create('publication_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description');
             $table->timestamps();
+            $table->softDeletes();
         });
         
     }

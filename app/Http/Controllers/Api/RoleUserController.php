@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\RoleUser;
+use App\Models\RoleUser;
 use App\Http\Requests\StoreRoleUserRequest;
 use App\Http\Requests\UpdateRoleUserRequest;
 

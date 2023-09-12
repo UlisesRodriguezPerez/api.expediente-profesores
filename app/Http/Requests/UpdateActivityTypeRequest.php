@@ -13,7 +13,7 @@ class UpdateActivityTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,10 @@ class UpdateActivityTypeRequest extends FormRequest
      */
     public function rules()
     {
+        $activityType = $this->route('activity_type');
         return [
-            //
+            'name' => 'required|string|max:255|unique:activity_types,name,' . $activityType->id,
+            'description' => 'required|string'
         ];
     }
 }

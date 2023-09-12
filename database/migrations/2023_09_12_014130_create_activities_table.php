@@ -20,6 +20,7 @@ class CreateActivitiesTable extends Migration
             $table->foreignId('involved_id')->constrained('collaborators');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
         
     }

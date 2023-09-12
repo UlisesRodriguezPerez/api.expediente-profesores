@@ -18,6 +18,7 @@ class CreateWorkUnitAndAdditionalCoursesTable extends Migration
             $table->foreignId('collaborator_id')->constrained('collaborators');
             $table->string('description');
             $table->timestamps();
+            $table->softDeletes();
         });
         
     }

@@ -18,6 +18,7 @@ class CreatePedagogicalTrainingsTable extends Migration
             $table->foreignId('activity_id')->constrained();
             $table->string('institution_name');
             $table->timestamps();
+            $table->softDeletes();
         });
         
     }

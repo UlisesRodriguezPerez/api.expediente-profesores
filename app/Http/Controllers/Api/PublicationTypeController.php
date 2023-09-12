@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\PublicationType;
+use App\Models\PublicationType;
 use App\Http\Requests\StorePublicationTypeRequest;
 use App\Http\Requests\UpdatePublicationTypeRequest;
 

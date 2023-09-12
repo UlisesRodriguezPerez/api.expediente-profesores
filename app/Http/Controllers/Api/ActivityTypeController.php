@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\ActivityType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActivityTypeRequest;
 use App\Http\Requests\UpdateActivityTypeRequest;
+use App\Models\ActivityType;
 
 class ActivityTypeController extends Controller
 {
@@ -16,18 +16,10 @@ class ActivityTypeController extends Controller
      */
     public function index()
     {
-        //
+        $activityTypes = ActivityType::all();
+        return $activityTypes;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +29,12 @@ class ActivityTypeController extends Controller
      */
     public function store(StoreActivityTypeRequest $request)
     {
-        //
+        $activityType = new ActivityType();
+        $activityType->name = $request->name;
+        $activityType->description = $request->description;
+        $activityType->save();
+
+        return $activityType;
     }
 
     /**
@@ -48,19 +45,9 @@ class ActivityTypeController extends Controller
      */
     public function show(ActivityType $activityType)
     {
-        //
+        return $activityType;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ActivityType  $activityType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ActivityType $activityType)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -71,7 +58,11 @@ class ActivityTypeController extends Controller
      */
     public function update(UpdateActivityTypeRequest $request, ActivityType $activityType)
     {
-        //
+        $activityType->name = $request->name;
+        $activityType->description = $request->description;
+        $activityType->save();
+
+        return $activityType;
     }
 
     /**
@@ -82,6 +73,7 @@ class ActivityTypeController extends Controller
      */
     public function destroy(ActivityType $activityType)
     {
-        //
+        $activityType->delete();
+        return $activityType;
     }
 }

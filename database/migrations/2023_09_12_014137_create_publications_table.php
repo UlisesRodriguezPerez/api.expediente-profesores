@@ -24,6 +24,7 @@ class CreatePublicationsTable extends Migration
             $table->string('dissemination_medium');
             $table->boolean('ORCID');
             $table->timestamps();
+            $table->softDeletes();
         });
         
     }

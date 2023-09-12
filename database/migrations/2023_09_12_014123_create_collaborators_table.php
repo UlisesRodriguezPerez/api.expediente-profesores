@@ -22,6 +22,7 @@ class CreateCollaboratorsTable extends Migration
             $table->foreignId('degree_id')->constrained('academic_degrees');
             $table->foreignId('campus_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

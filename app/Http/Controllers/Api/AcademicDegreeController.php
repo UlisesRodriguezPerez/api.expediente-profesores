@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\AcademicDegree;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAcademicDegreeRequest;
 use App\Http\Requests\UpdateAcademicDegreeRequest;
+use App\Models\AcademicDegree;
 
 class AcademicDegreeController extends Controller
 {
@@ -23,7 +23,7 @@ class AcademicDegreeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAcademicDegreeRequest  $request
+     * @param  \App\Http\Requests\StoreAcademicDegreeRequest  $request 
      * @return \Illuminate\Http\Response
      */
     public function store(StoreAcademicDegreeRequest $request)

@@ -20,6 +20,7 @@ class CreateTechnicalTrainingsTable extends Migration
             $table->string('institution_name');
             $table->integer('semester_hours');
             $table->timestamps();
+            $table->softDeletes();
         });
         
     }

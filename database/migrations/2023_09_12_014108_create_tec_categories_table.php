@@ -15,9 +15,10 @@ class CreateTecCategoriesTable extends Migration
     {
         Schema::create('tec_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

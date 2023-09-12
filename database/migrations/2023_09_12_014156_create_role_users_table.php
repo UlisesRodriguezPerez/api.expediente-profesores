@@ -18,6 +18,7 @@ class CreateRoleUsersTable extends Migration
             $table->foreignId('role_id')->constrained('roles');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
+            $table->softDeletes();
         });
         
     }

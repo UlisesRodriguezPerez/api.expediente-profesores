@@ -15,10 +15,11 @@ class CreateCampusesTable extends Migration
     {
         Schema::create('campuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description');
-            $table->string('acronym');
+            $table->string('acronym')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

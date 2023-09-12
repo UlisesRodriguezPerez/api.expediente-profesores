@@ -1,13 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Internationalization extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = ['activity_id', 'activity_type_id', 'objective'];
 

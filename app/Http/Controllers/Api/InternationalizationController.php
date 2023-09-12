@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Internationalization;
+use App\Models\Internationalization;
 use App\Http\Requests\StoreInternationalizationRequest;
 use App\Http\Requests\UpdateInternationalizationRequest;
 

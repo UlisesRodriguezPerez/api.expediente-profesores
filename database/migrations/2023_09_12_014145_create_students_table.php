@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
             $table->boolean('postgraduate_scholarship');
             $table->boolean('TFG');
             $table->timestamps();
+            $table->softDeletes();
         });
         
         
