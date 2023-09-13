@@ -18,7 +18,7 @@ class InternationalizationResource extends JsonResource
             'id' => $this->id,
             'university_name' => $this->university_name,
             'activity' => ActivityResource::make($this->whenLoaded('activity')),
-            'activity_type' => ActivityTypeResource::make($this->whenLoaded('activityType')),
+            'activity_type' => ActivityTypeResource::make($this->whenLoaded('activity_type')),
         ];
     }
 }
