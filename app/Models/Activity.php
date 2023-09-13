@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\ApiTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Activity extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, ApiTrait;
 
     protected $fillable = ['period_id', 'creator_id', 'involved_id', 'name'];
 

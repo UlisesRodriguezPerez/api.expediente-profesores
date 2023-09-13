@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\ApiTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Collaborator extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, ApiTrait;
 
     protected $fillable = ['user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id'];
 
