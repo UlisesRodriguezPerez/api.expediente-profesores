@@ -10,6 +10,10 @@ use App\Http\Resources\PeriodResource;
 
 class PeriodController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
 
     public function index()
     {
@@ -23,10 +27,13 @@ class PeriodController extends Controller
     public function store(StorePeriodRequest $request)
     {
         $period = new Period();
-        $period->creator_id = $request->creator_id;
+        // $period->creator_id = $request->creator_id;
         $period->name = $request->name;
         $period->start_date = $request->start_date;
         $period->end_date = $request->end_date;
+
+        $collaborator = auth()->user()->collaborator;
+        $period->creator_id = $collaborator->id;
         $period->save();
 
         return PeriodResource::make($period);
@@ -40,7 +47,7 @@ class PeriodController extends Controller
 
     public function update(UpdatePeriodRequest $request, Period $period)
     {
-        $period->creator_id = $request->creator_id;
+        // $period->creator_id = $request->creator_id;
         $period->name = $request->name;
         $period->start_date = $request->start_date;
         $period->end_date = $request->end_date;

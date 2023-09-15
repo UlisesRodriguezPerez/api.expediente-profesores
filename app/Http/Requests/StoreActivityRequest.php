@@ -25,7 +25,7 @@ class StoreActivityRequest extends FormRequest
     {
         return [
             'period_id' => 'required|exists:periods,id',
-            'creator_id' => 'required|exists:collaborators,id',
+            // 'creator_id' => 'required|exists:collaborators,id',
             'involved_id' => 'required|exists:collaborators,id',
             'name' => 'required|string|max:255',
         ];

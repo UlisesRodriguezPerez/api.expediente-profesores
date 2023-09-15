@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'collaborator' => CollaboratorResource::make($this->whenLoaded('collaborator')),
-            'roles' => RoleResource::collection($this->whenLoaded('roles')),
+            'roles' => RoleResource::collection($this->roles),
         ];
     }
 }

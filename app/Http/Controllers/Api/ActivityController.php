@@ -11,6 +11,11 @@ use App\Models\Activity;
 class ActivityController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function index()
     {
         $activitys = Activity::included()
@@ -24,9 +29,12 @@ class ActivityController extends Controller
     {
         $activity = new Activity();
         $activity->period_id = $request->period_id;
-        $activity->creator_id = $request->creator_id;
+        // $activity->creator_id = $request->creator_id;
         $activity->involved_id = $request->involved_id;
         $activity->name = $request->name;
+
+        $collaborator = auth()->user()->collaborator;
+        $activity->creator_id = $collaborator->id;
         $activity->save();
 
         return ActivityResource::make($activity);
@@ -41,7 +49,7 @@ class ActivityController extends Controller
     public function update(UpdateActivityRequest $request, Activity $activity)
     {
         $activity->period_id = $request->period_id;
-        $activity->creator_id = $request->creator_id;
+        // $activity->creator_id = $request->creator_id;
         $activity->involved_id = $request->involved_id;
         $activity->name = $request->name;
         $activity->save();
