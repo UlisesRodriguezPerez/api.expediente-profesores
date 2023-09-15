@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\ActivityTypeController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\AppointmentTypeController;
+use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\CampusController;
 use App\Http\Controllers\Api\CollaboratorController;
 use App\Http\Controllers\Api\InternationalizationController;
@@ -38,6 +39,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::post('login', [LoginController::class, 'store']);
+Route::post('register', [RegisterController::class, 'store'])->name('api.v1.register.store');
+
 
 Route::apiResource('training-types', TrainingTypeController::class)->names('api.v1.training-types');
 Route::apiResource('positions', PositionController::class)->names('api.v1.positions');
@@ -59,4 +63,4 @@ Route::apiResource('role-users', RoleUserController::class)->names('api.v1.role-
 Route::apiResource('pedagogical-trainings', PedagogicalTrainingController::class)->names('api.v1.pedagogical-trainings');
 Route::apiResource('work-units-and-additional-courses', WorkUnitAndAdditionalCourseController::class)->names('api.v1.work-units-and-additional-courses');
 
-Route::post('register', [RegisterController::class, 'store'])->name('api.v1.register.store');
+
