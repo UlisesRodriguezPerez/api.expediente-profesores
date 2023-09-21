@@ -26,4 +26,11 @@ class Period extends Model
     {
         return $this->hasMany(Activity::class);
     }
+
+    public function collaborators()
+    {
+        return $this->belongsToMany(Collaborator::class, 'workloads')
+                    ->withPivot('workload')
+                    ->withTimestamps();
+    }
 }

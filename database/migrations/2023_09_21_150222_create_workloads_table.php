@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkUnitAndAdditionalCoursesTable extends Migration
+class CreateWorkloadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateWorkUnitAndAdditionalCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('work_unit_and_additional_courses', function (Blueprint $table) {
+        Schema::create('workloads', function (Blueprint $table) {
             $table->id();
             $table->foreignId('collaborator_id')->constrained('collaborators');
-            $table->string('description');
+            $table->foreignId('period_id')->constrained('periods');
+            $table->decimal('workload', 4, 2);
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(['collaborator_id', 'period_id']);
         });
-        
     }
 
     /**
@@ -30,6 +31,6 @@ class CreateWorkUnitAndAdditionalCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_unit_and_additional_courses');
+        Schema::dropIfExists('workloads');
     }
 }

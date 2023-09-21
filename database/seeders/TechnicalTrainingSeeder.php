@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TechnicalTraining;
 use Illuminate\Database\Seeder;
 
 class TechnicalTrainingSeeder extends Seeder
@@ -13,6 +14,6 @@ class TechnicalTrainingSeeder extends Seeder
      */
     public function run()
     {
-        //
+        TechnicalTraining::factory(5)->create(); // Crea 5 entrenamientos técnicos
     }
 }

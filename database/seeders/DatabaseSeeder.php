@@ -13,12 +13,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        // call RoleSeeder 
-        $this->call(RoleSeeder::class);
-        // call UserSeeder
-        $this->call(UserSeeder::class);
-        // call RoleUserSeeder
-        $this->call(RoleUserSeeder::class);
+        $this->call([
+            UserSeeder::class,
+            TrainingTypeSeeder::class,
+            PositionSeeder::class,
+            ActivityTypeSeeder::class,
+            TecCategorySeeder::class,
+            CampusSeeder::class,
+            AcademicDegreeSeeder::class,
+            AppointmentTypeSeeder::class,
+            PublicationTypeSeeder::class,
+            RoleSeeder::class,
+            CollaboratorSeeder::class,
+            PeriodSeeder::class,
+            ActivitySeeder::class,
+            PublicationSeeder::class,
+            InternationalizationSeeder::class,
+            StudentSeeder::class,
+            TechnicalTrainingSeeder::class,
+            RoleUserSeeder::class,
+            PedagogicalTrainingSeeder::class,
+            WorkUnitAndAdditionalCourseSeeder::class,
+            WorkloadSeeder::class,
+        ]);
     }
 }

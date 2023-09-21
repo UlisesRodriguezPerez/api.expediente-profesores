@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TecCategory;
 use Illuminate\Database\Seeder;
 
 class TecCategorySeeder extends Seeder
@@ -13,6 +14,6 @@ class TecCategorySeeder extends Seeder
      */
     public function run()
     {
-        //
+        TecCategory::factory(5)->create(); // Crea 5 categorias de tecnica
     }
 }

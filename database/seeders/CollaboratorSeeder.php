@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Collaborator;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class CollaboratorSeeder extends Seeder
@@ -13,6 +15,9 @@ class CollaboratorSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $users = User::all();
+        foreach ($users as $user) {
+            Collaborator::factory()->create(['user_id' => $user->id]);
+        }
     }
 }

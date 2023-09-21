@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
+use App\Models\RoleUser;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 
 class RoleUserSeeder extends Seeder
 {
@@ -14,10 +18,23 @@ class RoleUserSeeder extends Seeder
      */
     public function run()
     {
-        // create role_user for user 1
-        DB::table('role_users')->insert([
-            'user_id' => 1,
-            'role_id' => 1,
-        ]);
+        $faker = Faker::create();
+
+        $adminRoleId = Role::where('name', 'admin')->first()->id;
+        $userRoleId = Role::where('name', 'user')->first()->id;
+
+        $users = User::all();
+        foreach ($users as $user) {
+            // Algunos usuarios tendrán ambos roles, otros sólo 'user'
+            $assignBothRoles = $faker->boolean(50);  // 50% de probabilidad
+
+            if ($assignBothRoles) {
+                RoleUser::factory()->create(['user_id' => $user->id, 'role_id' => $adminRoleId]);
+                RoleUser::factory()->create(['user_id' => $user->id, 'role_id' => $userRoleId]);
+            } else {
+                RoleUser::factory()->create(['user_id' => $user->id, 'role_id' => $userRoleId]);
+            }
+        }
+
     }
 }

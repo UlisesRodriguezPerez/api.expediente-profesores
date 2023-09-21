@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Period;
 use Illuminate\Database\Seeder;
 
 class PeriodSeeder extends Seeder
@@ -13,6 +14,6 @@ class PeriodSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Period::factory(5)->create(); // Crea 5 periodos
     }
 }

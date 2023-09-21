@@ -2,19 +2,18 @@
 
 namespace Database\Factories;
 
+use App\Models\AppointmentType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AppointmentTypeFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
+    protected $model = AppointmentType::class;
+
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->unique()->sentence(2),
+            'description' => $this->faker->sentence,
         ];
-    }
+    } 
 }

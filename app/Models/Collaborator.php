@@ -47,11 +47,6 @@ class Collaborator extends Model
         return $this->belongsTo(Campus::class);
     }
 
-    public function periods()
-    {
-        return $this->hasMany(Period::class, 'creator_id');
-    }
-
     public function createdActivities()
     {
         return $this->hasMany(Activity::class, 'creator_id');
@@ -71,4 +66,11 @@ class Collaborator extends Model
     {
         return $this->hasMany(WorkUnitsAndAdditionalCourse::class, 'collaborator_id');
     }
+
+    public function periods()
+    {
+        return $this->belongsToMany(Period::class, 'workloads')
+                    ->withPivot('workload')
+                    ->withTimestamps();
+    }         
 }

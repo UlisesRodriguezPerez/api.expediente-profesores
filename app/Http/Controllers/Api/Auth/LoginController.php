@@ -25,6 +25,8 @@ class LoginController extends Controller
         info('3');
 
         if (Hash::check($request->password, $user->password)) {
+            info('4');
+            info(UserResource::make($user)->all());
             return UserResource::make($user);
         } else {
             return response()->json(['message' => 'Los credenciales son incorrectos'], 401);

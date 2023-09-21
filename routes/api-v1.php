@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\TecCategoryController;
 use App\Http\Controllers\Api\TechnicalTrainingController;
 use App\Http\Controllers\Api\TrainingTypeController;
+use App\Http\Controllers\Api\WorkloadController;
 use App\Http\Controllers\Api\WorkUnitAndAdditionalCourseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -62,5 +63,6 @@ Route::apiResource('roles', RoleController::class)->names('api.v1.roles');
 Route::apiResource('role-users', RoleUserController::class)->names('api.v1.role-users');
 Route::apiResource('pedagogical-trainings', PedagogicalTrainingController::class)->names('api.v1.pedagogical-trainings');
 Route::apiResource('work-units-and-additional-courses', WorkUnitAndAdditionalCourseController::class)->names('api.v1.work-units-and-additional-courses');
+Route::apiResource('workloads', WorkloadController::class);
 
 
