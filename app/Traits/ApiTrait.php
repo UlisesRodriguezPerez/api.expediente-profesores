@@ -32,46 +32,52 @@ trait ApiTrait
 
     public function scopeFilter(Builder $query)
     {
+        info('Iniciando scopeFilter');
         if (!request()->has('filter') || empty($this->allowFilter)) {
-            return;
+            return; // No hay filtros en la solicitud o no hay filtros permitidos.
         }
-
+    
         $filters = request('filter');
-        $allowFilter = collect($this->allowFilter); // get allowed filters
-
-        // remove filters that are not allowed
+        $allowFilter = collect($this->allowFilter);
+    
+        // Filtrar solo los campos permitidos
+        $validFilters = [];
         foreach ($filters as $filter => $value) {
             if ($allowFilter->contains($filter)) {
-                // check if filter is a relation
-                if (strpos($filter, '.') !== false) {
-
-                    // split relation name and attribute name
-                    list($relation, $attribute) = explode('.', $filter);
-
-                    // add filter to relation query
-                    $query->orWhereHas($relation, function ($query) use ($attribute, $value) {
-                        $words = explode(" ", $value);
-                        foreach ($words as $index => $word) {
-                            $query->where($attribute, 'LIKE', '%' . $word . '%');
-                            if ($index < count($words) - 1) {
-                                $query->orWhere($attribute, 'LIKE', '%' . $word . '%');
-                            }
-                        }
-                    });
-                } else {
-
-                    // add filter to main query
-                    $words = explode(" ", $value);
-                    foreach ($words as $index => $word) {
-                        $query->orWhere($filter, 'LIKE', '%' . $word . '%');
-                        if ($index < count($words) - 1) {
-                            $query->orWhere($filter, 'LIKE', '%' . $word . '%');
-                        }
-                    }
-                }
+                $validFilters[$filter] = $value;
             }
         }
+    
+        if(empty($validFilters)) {
+            return; // No hay filtros válidos
+        }
+    
+        $query->where(function ($query) use ($validFilters) {
+            $this->applyFilter($query, $validFilters);
+        });
     }
+    
+    
+    private function applyFilter($query, $filters)
+    {
+        foreach ($filters as $filter => $value) {
+            $query->orWhere(function ($query) use ($filter, $value) {
+                if (strpos($filter, '.') !== false) {
+                    $parts = explode('.', $filter);
+                    $attribute = array_pop($parts);
+                    $relation = implode('.', $parts);
+    
+                    $query->whereHas($relation, function ($q) use ($attribute, $value) {
+                        $q->where($attribute, 'LIKE', "%$value%");
+                    });
+                } else {
+                    $query->where($filter, 'LIKE', "%$value%");
+                }
+            });
+        }
+        info('Query actual:', ['query' => $query->toSql(), 'bindings' => $query->getBindings()]);
+    }
+
 
     public function scopeSort(Builder $query)
     {
@@ -110,5 +116,4 @@ trait ApiTrait
 
         return $query->get();
     }
-
 }

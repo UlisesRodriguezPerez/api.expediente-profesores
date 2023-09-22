@@ -32,7 +32,7 @@ class UpdateWorkloadRequest extends FormRequest
                     $period_id = $this->get('period_id');
                     $exists = Workload::where('collaborator_id', $value)
                         ->where('period_id', $period_id)
-                        ->where('id', '!=', $this->route('workload')) // Asume que estás pasando el id de workload como parámetro de ruta
+                        ->where('id', '!=', $this->route('workload'))
                         ->exists();
                     if ($exists) {
                         $fail('A workload for this collaborator and period already exists.');

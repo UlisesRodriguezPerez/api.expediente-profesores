@@ -13,11 +13,14 @@ class WorkloadController extends Controller
 
     public function index()
     {
+        // cont total before pagination
         $workloads = Workload::included()
             ->filter()
-            ->sort()
-            ->getOrPaginate();
-        return WorkloadResource::collection($workloads);
+            ->sort();
+
+        $total = $workloads->count();
+        $workloads = $workloads->paginate(10);
+        return WorkloadResource::collection($workloads)->additional(compact('total'));
     }
 
 
@@ -29,7 +32,7 @@ class WorkloadController extends Controller
         $workload->workload = $request->workload;
         $workload->save();
 
-        return new WorkloadResource($workload);
+        return WorkloadResource::make($workload);
     }
 
 
@@ -42,13 +45,18 @@ class WorkloadController extends Controller
 
     public function update(UpdateWorkloadRequest $request, $id)
     {
+        info('collaborator_id: ' . $request->collaborator_id);
+info('period_id: ' . $request->period_id);
+info('workload: ' . $request->workload);
+        info('update');
+        info($request->all());
         $workload = Workload::findOrFail($id);
         $workload->collaborator_id = $request->collaborator_id;
         $workload->period_id = $request->period_id;
         $workload->workload = $request->workload;
         $workload->save();
 
-        return new WorkloadResource($workload);
+        return WorkloadResource::make($workload);
     }
 
 

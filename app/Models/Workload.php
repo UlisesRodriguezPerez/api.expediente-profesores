@@ -15,7 +15,7 @@ class Workload extends Model
 
     protected $allowIncluded = ['collaborator', 'period', 'collaborator.user', 'period.creator', 'period.creator.user'];
 
-    protected $allowFilter = ['collaborator_id', 'period_id', 'workload'];
+    protected $allowFilter = ['collaborator_id', 'period_id', 'workload', 'collaborator.user.name', 'collaborator.user.last_name', 'collaborator.user.second_last_name'];
 
     public function collaborator()
     {

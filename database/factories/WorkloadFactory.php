@@ -14,7 +14,7 @@ class WorkloadFactory extends Factory
     public function definition()
     {
         return [
-            'workload' => $this->faker->randomFloat(2, 0, 5), 
+            'workload' => $this->faker->randomFloat(2, 0, 1.5), 
         ];
     }
 }
