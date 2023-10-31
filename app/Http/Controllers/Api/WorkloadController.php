@@ -20,6 +20,7 @@ class WorkloadController extends Controller
 
         $total = $workloads->count();
         $workloads = $workloads->paginate(10);
+        info('workloads: ' . $workloads->toJson());
         return WorkloadResource::collection($workloads)->additional(compact('total'));
     }
 

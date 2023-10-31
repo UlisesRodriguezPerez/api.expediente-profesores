@@ -15,7 +15,7 @@ class Collaborator extends Model
 
     protected $allowIncluded = ['user', 'position', 'category', 'appointment', 'degree', 'campus', 'periods', 'created_activities', 'involved_activities', 'publications', 'work_units_and_additional_courses'];
 
-    protected $allowFilter = ['user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id'];
+    protected $allowFilter = ['id', 'user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id'];
 
     public function user()
     {
