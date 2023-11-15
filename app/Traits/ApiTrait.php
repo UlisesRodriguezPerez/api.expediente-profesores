@@ -32,7 +32,6 @@ trait ApiTrait
 
     public function scopeFilter(Builder $query)
     {
-        info('Iniciando scopeFilter');
         if (!request()->has('filter') || empty($this->allowFilter)) {
             return; // No hay filtros en la solicitud o no hay filtros permitidos.
         }
@@ -75,8 +74,53 @@ trait ApiTrait
                 }
             });
         }
-        info('Query actual:', ['query' => $query->toSql(), 'bindings' => $query->getBindings()]);
     }
+
+    public function scopeExactFilter(Builder $query)
+{
+    if (!request()->has('exactfilter') || empty($this->allowFilter)) {
+        return; // No hay filtros en la solicitud o no hay filtros permitidos.
+    }
+
+    $filters = request('exactfilter');
+    $allowFilter = collect($this->allowFilter);
+
+    // Filtrar solo los campos permitidos
+    $validFilters = [];
+    foreach ($filters as $filter => $value) {
+        if ($allowFilter->contains($filter)) {
+            $validFilters[$filter] = $value;
+        }
+    }
+
+    if (empty($validFilters)) {
+        return; // No hay filtros válidos
+    }
+
+    $query->where(function ($query) use ($validFilters) {
+        $this->applyExactFilter($query, $validFilters);
+    });
+}
+
+private function applyExactFilter($query, $filters)
+{
+    foreach ($filters as $filter => $value) {
+        $query->where(function ($query) use ($filter, $value) {
+            if (strpos($filter, '.') !== false) {
+                // If the filter is a nested attribute, we'll assume it's exact as well.
+                $parts = explode('.', $filter);
+                $attribute = array_pop($parts);
+                $relation = implode('.', $parts);
+
+                $query->whereHas($relation, function ($q) use ($attribute, $value) {
+                    $q->where($attribute, '=', $value);
+                });
+            } else {
+                $query->where($filter, '=', $value);
+            }
+        });
+    }
+}
 
 
     public function scopeSort(Builder $query)

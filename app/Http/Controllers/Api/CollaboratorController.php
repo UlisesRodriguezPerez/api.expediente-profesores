@@ -16,8 +16,11 @@ class CollaboratorController extends Controller
         $collaborators = Collaborator::included()
             ->filter()
             ->sort()
-            ->getOrPaginate();
-        return CollaboratorResource::collection($collaborators);
+            ->exactFilter();
+
+        $total = $collaborators->count();
+        $collaborators = $collaborators->getOrPaginate();
+        return CollaboratorResource::collection($collaborators)->additional(compact('total'));
     }
 
     public function store(StoreCollaboratorRequest $request)

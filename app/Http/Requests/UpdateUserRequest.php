@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRoleRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,6 +31,7 @@ class UpdateRoleRequest extends FormRequest
             'phone' => 'required|string|max:15',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
             'password' => 'sometimes|required|string|min:6|confirmed',
+            'roles' => 'sometimes|array|exists:roles,id',
         ];
     }
 }

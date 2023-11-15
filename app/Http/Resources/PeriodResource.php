@@ -20,7 +20,9 @@ class PeriodResource extends JsonResource
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'creator' => CollaboratorResource::make($this->whenLoaded('creator')),
-            'activities' => ActivityResource::collection($this->whenLoaded('activities')),            
+            'activities' => ActivityResource::collection($this->whenLoaded('activities')),   
+            'workloads' => WorkloadResource::collection($this->whenLoaded('workloads')),
+            'collaborators' => CollaboratorResource::collection($this->whenLoaded('collaborators')),         
         ];
     }
 }

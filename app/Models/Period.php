@@ -13,7 +13,7 @@ class Period extends Model
 
     protected $fillable = ['creator_id', 'name', 'start_date', 'end_date'];
 
-    protected $allowIncluded = ['creator', 'activities'];
+    protected $allowIncluded = ['creator', 'activities', 'workloads', 'collaborators'];
 
     protected $allowFilter = ['name', 'start_date', 'end_date', 'creator_id'];
 
@@ -25,6 +25,11 @@ class Period extends Model
     public function activities()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    public function workloads()
+    {
+        return $this->hasMany(Workload::class);
     }
 
     public function collaborators()

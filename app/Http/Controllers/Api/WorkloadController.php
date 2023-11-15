@@ -12,15 +12,17 @@ class WorkloadController extends Controller
 {
 
     public function index()
-    {
-        // cont total before pagination
-        $workloads = Workload::included()
+    {   
+        $workloads = Workload::whereHas('collaborator', function ($query) {
+            $query->whereNull('deleted_at'); // Esto excluye los colaboradores eliminados
+        })
+        ->included()
             ->filter()
             ->sort();
-
+        info('1- workloads: ' . $workloads->get()[0]->collaborator);
         $total = $workloads->count();
-        $workloads = $workloads->paginate(10);
-        info('workloads: ' . $workloads->toJson());
+        $workloads = $workloads->getOrPaginate(); 
+        info('2 -workloads: ' . $workloads[0]->collaborator);
         return WorkloadResource::collection($workloads)->additional(compact('total'));
     }
 

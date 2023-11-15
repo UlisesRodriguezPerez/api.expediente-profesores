@@ -13,7 +13,9 @@ class Collaborator extends Model
 
     protected $fillable = ['user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id'];
 
-    protected $allowIncluded = ['user', 'position', 'category', 'appointment', 'degree', 'campus', 'periods', 'created_activities', 'involved_activities', 'publications', 'work_units_and_additional_courses'];
+    protected $allowIncluded = ['user', 'position', 'category', 'appointment', 'degree', 'campus', 
+                                'periods', 'created_activities', 'involved_activities', 'publications', 
+                                'work_units_and_additional_courses', 'workloads', 'workloads.period', 'workloads.period.activities'];
 
     protected $allowFilter = ['id', 'user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id'];
 
@@ -65,6 +67,11 @@ class Collaborator extends Model
     public function workUnitsAndAdditionalCourses()
     {
         return $this->hasMany(WorkUnitsAndAdditionalCourse::class, 'collaborator_id');
+    }
+
+    public function workloads()
+    {
+        return $this->hasMany(Workload::class);
     }
 
     public function periods()

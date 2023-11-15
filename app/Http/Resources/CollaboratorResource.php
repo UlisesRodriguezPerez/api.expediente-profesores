@@ -27,6 +27,7 @@ class CollaboratorResource extends JsonResource
             'involved_activities' => ActivityResource::collection($this->whenLoaded('involved_activities')),
             'publications' => PublicationResource::collection($this->whenLoaded('publications')),
             'work_units_and_additional_courses' => WorkUnitAndAdditionalCourseResource::collection($this->whenLoaded('work_units_and_additional_courses')),
+            'workloads' => WorkloadResource::collection($this->whenLoaded('workloads')),
         ];
     }
 }
