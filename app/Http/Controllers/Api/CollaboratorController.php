@@ -7,12 +7,9 @@ use App\Models\Collaborator;
 use App\Http\Requests\StoreCollaboratorRequest;
 use App\Http\Requests\UpdateCollaboratorRequest;
 use App\Http\Resources\CollaboratorResource;
-use App\Models\TechnicalTraining;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isNull;
 
 class CollaboratorController extends Controller
 {
@@ -101,7 +98,6 @@ class CollaboratorController extends Controller
 
     public function getHistoryCollaborator($userId, $period_id)
     {
-        info('periodId__: ' . $period_id);
         $collaboratorId = Collaborator::where('user_id', $userId)->first()->id;
 
         // Tu consulta
@@ -120,11 +116,6 @@ class CollaboratorController extends Controller
             $period = $workload->period;
             $periodId = $period->id;
 
-            
-            info('periodId: ' . $periodId);
-            info('period_id: ' . $period_id);
-            info('isset: ' . isset($period_id));
-    
             if ($periodId != $period_id && $period_id != self::NOT_FILTER) {
                 info('hdcvli');
                 continue;
@@ -136,15 +127,80 @@ class CollaboratorController extends Controller
                 'courses_count' => count($period->courses),
                 // Calcula el total de todas las actividades
                 'total_activities_count' => $collaborator->technicalTrainings->where('pivot.period_id', $periodId)->count() +
-                                            $collaborator->pedagogicalTrainings->where('pivot.period_id', $periodId)->count() +
-                                            $collaborator->internationalizations->where('pivot.period_id', $periodId)->count() +
-                                            $collaborator->activityFormationTrainings->where('pivot.period_id', $periodId)->count() +
-                                            $collaborator->activityGenerals->where('pivot.period_id', $periodId)->count(),
+                    $collaborator->pedagogicalTrainings->where('pivot.period_id', $periodId)->count() +
+                    $collaborator->internationalizations->where('pivot.period_id', $periodId)->count() +
+                    $collaborator->activityFormationTrainings->where('pivot.period_id', $periodId)->count() +
+                    $collaborator->activityGenerals->where('pivot.period_id', $periodId)->count(),
             ];
 
             $details[] = $detailsForPeriod;
         }
 
         return response()->json($details);
+    }
+
+    public function getHistoryCollaboratorAdmin(Request $request, $userId)
+    {
+        $collaborators = Collaborator::with([
+            'technicalTrainings',
+            'pedagogicalTrainings',
+            'internationalizations',
+            'activityFormationTrainings',
+            'activityGenerals',
+            'workloads.period.courses'
+        ])->where('user_id', $userId)->get();
+
+        // Preparar un array para almacenar los resultados agrupados por períodos.
+        $periodDetails = [];
+
+        // Iterar sobre cada colaborador y sus relaciones.
+        foreach ($collaborators as $collaborator) {
+            foreach ($collaborator->workloads as $workload) {
+                $period = $workload->period; // Obtenemos el período del workload
+                $periodId = $period->id;
+
+                // Inicializar el arreglo para el período si aún no existe.
+                if (!isset($periodDetails[$periodId])) {
+                    $periodDetails[$periodId] = [
+                        'period_id' => $periodId,
+                        'period_name' => $period->name,
+                        'start_date' => $period->start_date,
+                        'end_date' => $period->end_date,
+                        'workload' => $workload->workload,
+                        'courses_count' => count($period->courses),
+                        'activities_count' => 0,
+                        // Agregar más detalles si es necesario
+                    ];
+                }
+
+                // Ahora, agregar las actividades a cada período.
+                $activities = [
+                    ...$collaborator->technicalTrainings,
+                    ...$collaborator->pedagogicalTrainings,
+                    ...$collaborator->internationalizations,
+                    ...$collaborator->activityFormationTrainings,
+                    ...$collaborator->activityGenerals,
+                ];
+
+                foreach ($activities as $activity) {
+                    if ($activity->pivot->period_id == $periodId) {
+                        $periodDetails[$periodId]['activities_count']++;
+                    }
+                }
+            }
+        }
+
+        $perPage = $request->query('perPage', 10);
+        $page = $request->query('page', 1); 
+
+        // Calcula el total de elementos.
+        $total = count($periodDetails);
+        $offset = ($page - 1) * $perPage;
+        $periodDetailsForPage = array_slice($periodDetails, $offset, $perPage);
+        $response = [
+            'data' => $periodDetailsForPage,
+            'total' => $total,
+        ];
+        return response()->json($response);
     }
 }

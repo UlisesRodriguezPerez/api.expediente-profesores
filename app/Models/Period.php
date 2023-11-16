@@ -65,26 +65,4 @@ class Period extends Model
         });
     }
 
-    public function allActivities()
-    {
-        $activities = collect();
-
-        // Obtener registros de la tabla polimórfica
-        $activityRecords = DB::table('collaborator_activities')
-            ->where('period_id', $this->id)
-            ->get();
-
-        foreach ($activityRecords as $record) {
-            // Determinar el modelo de actividad basado en 'activitable_type'
-            $model = $record->activitable_type;
-            $activity = $model::find($record->activitable_id);
-
-            if ($activity) {
-                $activities->push($activity);
-            }
-        }
-
-        return $activities;
-    }
-
 }

@@ -76,4 +76,5 @@ Route::post('/collaborators/{collaborator}/assign-activity', [CollaboratorContro
 
 
 Route::get('/collaborators/{userId}/period-details/{periodId}', [CollaboratorController::class, 'getHistoryCollaborator'])->name('api.v1.collaborators.period-details');
+Route::get('/collaborators/{userId}/period-details-admin', [CollaboratorController::class, 'getHistoryCollaboratorAdmin'])->name('api.v1.collaborators.period-details');
 
