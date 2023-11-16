@@ -23,6 +23,8 @@ class StoreTechnicalTrainingRequest extends FormRequest
      */
     public function rules()
     {
+
+        info('Technical rules');
         return [
             'training_type_id' => 'required|exists:training_types,id',
             'name' => 'required|string|max:255',

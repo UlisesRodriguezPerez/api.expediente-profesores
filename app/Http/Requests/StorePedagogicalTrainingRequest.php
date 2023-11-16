@@ -23,6 +23,7 @@ class StorePedagogicalTrainingRequest extends FormRequest
      */
     public function rules()
     {
+        info('pedogigical rules');
         return [
             'name' => 'required|string|max:255',
             'institution_name' => 'required|string|max:255',
