@@ -22,13 +22,51 @@ public function index()
 
 public function store(StoreInternationalizationRequest $request)
 {
+    /*
     $internationalization = new Internationalization();
     $internationalization->activity_id = $request->activity_id;
     $internationalization->activity_type_id = $request->activity_type_id;
     $internationalization->university_name = $request->university_name;
     $internationalization->save();
 
-    return InternationalizationResource::make($internationalization);
+    return InternationalizationResource::make($internationalization); */
+
+    DB::transaction(function () use ($request) {
+        $internationalization = new Internationalization();
+        $internationalization->name = $request->name;
+        $internationalization->activity_type_id = $request->activity_type_id;
+        $internationalization->university_name = $request->university_name;
+        $internationalization->country = $request->country;
+        $internationalization->save();
+
+        $user = User::find($request->user_id);
+        $collaborator = $user->collaborator;
+
+        if (!$user ) {
+            throw new Exception('Fallo en el sistema.');
+        }
+        if (!$collaborator ) {
+            throw new Exception('Fallo en el sistema.');
+        }
+
+        $today = Carbon::now();
+
+        $currentPeriod = Period::where('start_date', '<=', $today)
+            ->where('end_date', '>=', $today)
+            ->first();
+
+        if (!$currentPeriod ){
+            throw new Exception('Fallo en el sistema.');
+        }
+
+        info('currentPeriod' . $currentPeriod);
+
+
+        $collaborator->internationalization()->attach($internationalization->id, ['period_id' => $currentPeriod->id]);
+
+        return InternationalizationResource::make($internationalization);
+    });
+
 }
 
 public function show($id)
