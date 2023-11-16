@@ -69,6 +69,7 @@ Route::apiResource('users', UserController::class)->names('api.v1.users');
 Route::apiResource('courses', CourseController::class)->names('api.v1.courses');
 
 Route::post('/collaborators/{collaborator}/assign-course', [CollaboratorController::class, 'assignCourse'])->name('api.v1.collaborators.assign-course');
+Route::post('/collaborators/{collaborator}/assign-activity', [CollaboratorController::class, 'assignActivity'])->name('api.v1.collaborators.assign-activity');
 
 
 
