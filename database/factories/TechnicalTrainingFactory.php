@@ -14,10 +14,8 @@ class TechnicalTrainingFactory extends Factory
     public function definition()
     {
         return [
+            'name' => $this->faker->word(),
             'training_type_id' => TrainingType::inRandomOrder()->first()->id,
-            'activity_id' => Activity::inRandomOrder()->first()->id,
-            'institution_name' => $this->faker->company,
-            'semester_hours' => $this->faker->numberBetween(10, 100),
         ];
     }
 }

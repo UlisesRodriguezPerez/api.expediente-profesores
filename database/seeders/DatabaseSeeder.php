@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Course;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,6 +36,13 @@ class DatabaseSeeder extends Seeder
             PedagogicalTrainingSeeder::class,
             WorkUnitAndAdditionalCourseSeeder::class,
             WorkloadSeeder::class,
+
+            ActivityFormationTrainingSeeder::class,
+            ActivityGeneralSeeder::class,
+            CollaboratorActivitiesSeeder::class,
+            CourseSeeder::class,
+            CollaboratorCoursePeriodSeeder::class,
+
         ]);
     }
 }

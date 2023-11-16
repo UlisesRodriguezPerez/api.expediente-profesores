@@ -13,7 +13,7 @@ class Period extends Model
 
     protected $fillable = ['creator_id', 'name', 'start_date', 'end_date'];
 
-    protected $allowIncluded = ['creator', 'activities', 'workloads', 'collaborators'];
+    protected $allowIncluded = ['creator', 'activities', 'workloads', 'collaborators', 'collaborators.user', 'courses', 'courses.collaborators', 'courses.collaborators.user'];
 
     protected $allowFilter = ['name', 'start_date', 'end_date', 'creator_id'];
 
@@ -32,10 +32,24 @@ class Period extends Model
         return $this->hasMany(Workload::class);
     }
 
-    public function collaborators()
+    public function collaboratorsThroughWorkloads()
     {
         return $this->belongsToMany(Collaborator::class, 'workloads')
-                    ->withPivot('workload')
-                    ->withTimestamps();
+            ->withPivot('workload')
+            ->withTimestamps();
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'collaborator_course_period')
+            ->withPivot('collaborator_id')
+            ->withTimestamps();
+    }
+
+    public function collaboratorsThroughCourses()
+    {
+        return $this->belongsToMany(Collaborator::class, 'collaborator_course_period')
+            ->withPivot('course_id')
+            ->withTimestamps();
     }
 }

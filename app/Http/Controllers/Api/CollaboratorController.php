@@ -7,6 +7,7 @@ use App\Models\Collaborator;
 use App\Http\Requests\StoreCollaboratorRequest;
 use App\Http\Requests\UpdateCollaboratorRequest;
 use App\Http\Resources\CollaboratorResource;
+use Illuminate\Support\Facades\Request;
 
 class CollaboratorController extends Controller
 {
@@ -33,6 +34,21 @@ class CollaboratorController extends Controller
         $collaborator->degree_id = $request->degree_id;
         $collaborator->campus_id = $request->campus_id;
         $collaborator->save();
+
+        return CollaboratorResource::make($collaborator);
+    }
+
+    public function assignCourse(Request $request, Collaborator $collaborator)
+    {
+        $validatedData = $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'period_id' => 'required|exists:periods,id'
+        ]);
+
+        $courseId = $validatedData['course_id'];
+        $periodId = $validatedData['period_id'];
+
+        $collaborator->courses()->attach($courseId, ['period_id' => $periodId]);
 
         return CollaboratorResource::make($collaborator);
     }

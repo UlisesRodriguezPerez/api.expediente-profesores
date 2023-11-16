@@ -14,9 +14,10 @@ class InternationalizationFactory extends Factory
     public function definition()
     {
         return [
-            'activity_id' => Activity::inRandomOrder()->first()->id,
+            'name' => $this->faker->word(),
             'activity_type_id' => ActivityType::inRandomOrder()->first()->id,
             'university_name' => $this->faker->company,
+            'country' => $this->faker->country,
         ];
     }
 }

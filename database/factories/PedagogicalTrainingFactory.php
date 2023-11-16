@@ -13,7 +13,7 @@ class PedagogicalTrainingFactory extends Factory
     public function definition()
     {
         return [
-            'activity_id' => Activity::all()->random()->id ?? Activity::factory(),
+            'name' => $this->faker->word(),
             'institution_name' => $this->faker->company,
         ];        
     }

@@ -11,19 +11,25 @@ class TechnicalTraining extends Model
 {
     use HasFactory, SoftDeletes, ApiTrait;
 
-    protected $fillable = ['activity_id', 'training_type_id', 'hours', 'objective'];
+    protected $fillable = ['training_type_id', 'hours', 'objective'];
 
-    protected $allowIncluded = ['activity', 'training_type'];
+    protected $allowIncluded = ['training_type', 'collaborators', 'collaborators.user'];
 
-    protected $allowFilter = ['objective', 'activity_id', 'training_type_id', 'hours'];
+    protected $allowFilter = ['objective', 'training_type_id', 'hours'];
 
-    public function activity()
-    {
-        return $this->belongsTo(Activity::class);
-    }
+    // public function activity()
+    // {
+    //     return $this->belongsTo(Activity::class);
+    // }
 
     public function trainingType()
     {
         return $this->belongsTo(TrainingType::class);
+    }
+
+    public function collaborators()
+    {
+        return $this->morphedByMany(Collaborator::class, 'activitable', 'collaborator_activities')
+                    ->withPivot('period_id');
     }
 }

@@ -16,10 +16,9 @@ class TechnicalTrainingResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'hours' => $this->hours,
-            'objective' => $this->objective,
-            'activity' => ActivityResource::make($this->whenLoaded('activity')),
+            'name' => $this->name,
             'training_type' => TrainingTypeResource::make($this->whenLoaded('training_type')),
+            'collaborator' => CollaboratorResource::make($this->whenLoaded('collaborator')),
         ];
     }
 }

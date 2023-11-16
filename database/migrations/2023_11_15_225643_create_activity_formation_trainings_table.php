@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTechnicalTrainingsTable extends Migration
+class CreateActivityFormationTrainingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateTechnicalTrainingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('technical_trainings', function (Blueprint $table) {
+        Schema::create('activity_formation_trainings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('training_type_id')->constrained('training_types');
             $table->string('name');
+            $table->string('university');
+            $table->string('academic_degree');
+            $table->string('start_year');
+            $table->string('end_year');
             $table->timestamps();
-            $table->softDeletes();
         });
-        
     }
 
     /**
@@ -30,6 +31,6 @@ class CreateTechnicalTrainingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('technical_trainings');
+        Schema::dropIfExists('activity_formation_trainings');
     }
 }

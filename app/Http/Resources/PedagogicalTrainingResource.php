@@ -16,9 +16,9 @@ class PedagogicalTrainingResource extends JsonResource
     {
         return[
             'id' => $this->id,
-            'hours' => $this->hours,
-            'objective' => $this->objective,
-            'activity' => ActivityResource::make($this->whenLoaded('activity')),
+            'name' => $this->name,
+            'unversity_name' => $this->unversity_name,
+            'collaborator' => CollaboratorResource::make($this->whenLoaded('collaborator')),
         ];
     }
 }

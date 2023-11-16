@@ -15,7 +15,7 @@ class CreatePedagogicalTrainingsTable extends Migration
     {
         Schema::create('pedagogical_trainings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('activity_id')->constrained();
+            $table->string('name');
             $table->string('institution_name');
             $table->timestamps();
             $table->softDeletes();

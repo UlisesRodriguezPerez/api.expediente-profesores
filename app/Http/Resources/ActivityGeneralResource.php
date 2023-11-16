@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InternationalizationResource extends JsonResource
+class ActivityGeneralResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,7 @@ class InternationalizationResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'activity_type' => ActivityTypeResource::make($this->whenLoaded('activity_type')),
-            'university_name' => $this->university_name,
-            'country' => $this->country,
+            'hours' => $this->hours,
             'collaborator' => CollaboratorResource::make($this->whenLoaded('collaborator')),
         ];
     }

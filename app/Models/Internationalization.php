@@ -11,15 +11,21 @@ class Internationalization extends Model
 {
     use HasFactory, SoftDeletes, ApiTrait;
 
-    protected $fillable = ['activity_id', 'activity_type_id', 'objective'];
+    protected $fillable = ['activity_type_id', 'objective'];
 
-    protected $allowIncluded = ['activity', 'activity_type'];
+    protected $allowIncluded = ['activity_type', 'collaborators', 'collaborators.user'];
 
-    protected $allowFilter = ['objective', 'activity_id', 'activity_type_id'];
+    protected $allowFilter = ['objective', 'activity_type_id'];
 
-    public function activity()
+    // public function activity()
+    // {
+    //     return $this->belongsTo(Activity::class);
+    // }
+
+    public function collaborators()
     {
-        return $this->belongsTo(Activity::class);
+        return $this->morphedByMany(Collaborator::class, 'activitable', 'collaborator_activities')
+                    ->withPivot('period_id');
     }
 
     public function activityType()

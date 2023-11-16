@@ -28,6 +28,12 @@ class CollaboratorResource extends JsonResource
             'publications' => PublicationResource::collection($this->whenLoaded('publications')),
             'work_units_and_additional_courses' => WorkUnitAndAdditionalCourseResource::collection($this->whenLoaded('work_units_and_additional_courses')),
             'workloads' => WorkloadResource::collection($this->whenLoaded('workloads')),
+            'courses' => CourseResource::collection($this->whenLoaded('courses')),
+            'technical_trainings' => TechnicalTrainingResource::collection($this->whenLoaded('technical_trainings')),
+            'pedagogical_trainings' => PedagogicalTrainingResource::collection($this->whenLoaded('pedagogical_trainings')),
+            'activity_formation_trainings' => ActivityFormationTrainingResource::collection($this->whenLoaded('activity_formation_trainings')),
+            'internationalizations' => InternationalizationResource::collection($this->whenLoaded('internationalizations')),
+            'activity_generals' => ActivityGeneralResource::collection($this->whenLoaded('activity_generals')),
         ];
     }
 }
