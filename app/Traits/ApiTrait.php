@@ -29,6 +29,7 @@ trait ApiTrait
 
         $query->with($relations);
     }
+    
 
     public function scopeFilter(Builder $query)
     {

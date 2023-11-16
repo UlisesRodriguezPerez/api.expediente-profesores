@@ -20,6 +20,7 @@ class CreateActivityFormationTrainingsTable extends Migration
             $table->string('academic_degree');
             $table->string('start_year');
             $table->string('end_year');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

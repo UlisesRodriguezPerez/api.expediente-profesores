@@ -32,4 +32,5 @@ class TechnicalTraining extends Model
         return $this->morphedByMany(Collaborator::class, 'activitable', 'collaborator_activities')
                     ->withPivot('period_id');
     }
+
 }

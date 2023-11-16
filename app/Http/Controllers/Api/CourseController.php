@@ -15,6 +15,7 @@ class CourseController extends Controller
         $courses = Course::included()
             ->filter()
             ->sort()
+            ->exactFilter()
             ->getOrPaginate();
         return CourseResource::collection($courses);
     }

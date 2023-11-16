@@ -29,11 +29,14 @@ class CollaboratorResource extends JsonResource
             'work_units_and_additional_courses' => WorkUnitAndAdditionalCourseResource::collection($this->whenLoaded('work_units_and_additional_courses')),
             'workloads' => WorkloadResource::collection($this->whenLoaded('workloads')),
             'courses' => CourseResource::collection($this->whenLoaded('courses')),
-            'technical_trainings' => TechnicalTrainingResource::collection($this->whenLoaded('technical_trainings')),
+            'technical_trainings' => TechnicalTrainingResource::collection($this->whenLoaded('technicalTrainings')),
             'pedagogical_trainings' => PedagogicalTrainingResource::collection($this->whenLoaded('pedagogical_trainings')),
             'activity_formation_trainings' => ActivityFormationTrainingResource::collection($this->whenLoaded('activity_formation_trainings')),
             'internationalizations' => InternationalizationResource::collection($this->whenLoaded('internationalizations')),
             'activity_generals' => ActivityGeneralResource::collection($this->whenLoaded('activity_generals')),
+            'periodsThroughCourses' => PeriodResource::collection($this->whenLoaded('periodsThroughCourses')),
+            'periodsThroughWorkloads' => PeriodResource::collection($this->whenLoaded('periodsThroughWorkloads')),
+            'period_all_activities' => PeriodResource::collection($this->whenLoaded('workloads.period.allActivities')),
         ];
     }
 }

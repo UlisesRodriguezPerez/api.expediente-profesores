@@ -22,7 +22,10 @@ class PeriodResource extends JsonResource
             'creator' => CollaboratorResource::make($this->whenLoaded('creator')),
             'activities' => ActivityResource::collection($this->whenLoaded('activities')),   
             'workloads' => WorkloadResource::collection($this->whenLoaded('workloads')),
-            'collaborators' => CollaboratorResource::collection($this->whenLoaded('collaborators')),         
+            'collaborators' => CollaboratorResource::collection($this->whenLoaded('collaborators')),
+            'courses' => CourseResource::collection($this->whenLoaded('courses')),
+            'technical_trainings' => TechnicalTrainingResource::collection($this->whenLoaded('technicalTrainings')),
+            'allActivities' => $this->whenLoaded('allActivities'),
         ];
     }
 }

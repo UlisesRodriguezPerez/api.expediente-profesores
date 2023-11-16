@@ -16,12 +16,15 @@ class Collaborator extends Model
     protected $allowIncluded = [
         'user', 'position', 'category', 'appointment', 'degree', 'campus',
         'periods', 'created_activities', 'involved_activities', 'publications',
-        'work_units_and_additional_courses', 'workloads', 'workloads.period', 'workloads.period.activities',
-        'courses', 'courses.periods', 'technical_trainings', 'pedagogical_trainings',
+        'work_units_and_additional_courses', 'workloads', 'workloads.period', 'workloads.period.courses',
+        'workloads.periodsThroughWorkloads', 'workloads.period.technicalTrainings',
+        'courses', 'courses.periods', 'technicalTrainings', 'pedagogical_trainings',
         'activity_formation_trainings', 'internationalizations', 'activity_generals',
+        'periodsThroughCourses', 'allActivities', 'workloads.period.allActivities'
+
     ];
 
-    protected $allowFilter = ['id', 'user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id'];
+    protected $allowFilter = ['id', 'user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id', 'user.id'];
 
     public function user()
     {
@@ -101,31 +104,31 @@ class Collaborator extends Model
 
     public function technicalTrainings()
     {
-        return $this->morphToMany(TechnicalTraining::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
+        return $this->morphedByMany(TechnicalTraining::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
                     ->withPivot('period_id');
     }
 
     public function pedagogicalTrainings()
     {
-        return $this->morphToMany(PedagogicalTraining::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
+        return $this->morphedByMany(PedagogicalTraining::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
                     ->withPivot('period_id');
     }
 
     public function internationalizations()
     {
-        return $this->morphToMany(Internationalization::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
+        return $this->morphedByMany(Internationalization::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
                     ->withPivot('period_id');
     }
 
     public function activityFormationTrainings()
     {
-        return $this->morphToMany(ActivityFormationTraining::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
+        return $this->morphedByMany(ActivityFormationTraining::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
                     ->withPivot('period_id');
     }
 
     public function activityGenerals()
     {
-        return $this->morphToMany(ActivityGeneral::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
+        return $this->morphedByMany(ActivityGeneral::class, 'activitable', 'collaborator_activities', 'collaborator_id', 'activitable_id')
                     ->withPivot('period_id');
     }
 }

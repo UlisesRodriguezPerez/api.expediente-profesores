@@ -18,6 +18,7 @@ class CreateCollaboratorActivitiesTable extends Migration
             $table->foreignId('collaborator_id')->constrained();
             $table->foreignId('period_id')->constrained();
             $table->morphs('activitable'); // Esto creará 'activitable_id' y 'activitable_type'
+            $table->softDeletes();
             $table->timestamps();
         });
     }

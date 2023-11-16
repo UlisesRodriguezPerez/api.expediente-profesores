@@ -17,6 +17,7 @@ class CreateActivityGeneralsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('hours');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

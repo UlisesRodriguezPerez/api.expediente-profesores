@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\AppointmentTypeController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\CampusController;
 use App\Http\Controllers\Api\CollaboratorController;
+use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\InternationalizationController;
 use App\Http\Controllers\Api\PedagogicalTrainingController;
 use App\Http\Controllers\Api\PeriodController;
@@ -72,4 +73,5 @@ Route::post('/collaborators/{collaborator}/assign-course', [CollaboratorControll
 Route::post('/collaborators/{collaborator}/assign-activity', [CollaboratorController::class, 'assignActivity'])->name('api.v1.collaborators.assign-activity');
 
 
+Route::get('/collaborators/{userId}/period-details/{periodId}', [CollaboratorController::class, 'getHistoryCollaborator'])->name('api.v1.collaborators.period-details');
 
