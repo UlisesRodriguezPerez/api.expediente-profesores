@@ -18,7 +18,7 @@ class Collaborator extends Model
         'periods', 'created_activities', 'involved_activities', 'publications',
         'work_units_and_additional_courses', 'workloads', 'workloads.period', 'workloads.period.courses',
         'workloads.periodsThroughWorkloads', 'workloads.period.technicalTrainings',
-        'courses', 'courses.periods', 'technicalTrainings', 'pedagogical_trainings',
+        'courses', 'courses.periods', 'technicalTrainings', 'pedagogicalTrainings',
         'activityFormationTrainings', 'internationalizations', 'activity_generals',
         'periodsThroughCourses', 'allActivities', 'workloads.period.allActivities',
 
