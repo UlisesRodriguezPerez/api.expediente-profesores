@@ -23,9 +23,25 @@ class ActivityGeneralController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreActivityGeneralRequest $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+            $activityGeneral = new ActivityGeneal();
+            $activityGeneral->name = $request->name;
+            $activityGeneral->hours = $request->hours;
+            $activityGeneral->save();
+    
+            //$user = User::find($request->teacher); //no se si teacher trae 
+            $collaborator = Collaborador::find($request->teacher);
+    
+            if (!$collaborator ) {
+                throw new Exception('Fallo en el sistema.');
+            }
+    
+            $collaborator->activityGeneral()->attach($activityGeneral->id, ['period_id' => $request->period]);
+    
+            return ActivityGeneralResource::make($activityGeneral);
+        });
     }
 
     /**
