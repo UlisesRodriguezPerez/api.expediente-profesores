@@ -23,6 +23,7 @@ class StoreInternationalizationRequest extends FormRequest
      */
     public function rules()
     {
+        info('rules');
         return [
             'activity_type_id' => 'required|exists:activity_types,id',
             'name' => 'required|string|max:255',

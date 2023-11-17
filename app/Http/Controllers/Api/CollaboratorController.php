@@ -21,7 +21,7 @@ class CollaboratorController extends Controller
             ->filter()
             ->sort()
             ->exactFilter();
-
+        info('collaborators' . $collaborators->get());
         $total = $collaborators->count();
         $collaborators = $collaborators->getOrPaginate();
         return CollaboratorResource::collection($collaborators)->additional(compact('total'));

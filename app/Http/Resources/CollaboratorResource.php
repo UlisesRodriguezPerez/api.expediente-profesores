@@ -31,7 +31,7 @@ class CollaboratorResource extends JsonResource
             'courses' => CourseResource::collection($this->whenLoaded('courses')),
             'technical_trainings' => TechnicalTrainingResource::collection($this->whenLoaded('technicalTrainings')),
             'pedagogical_trainings' => PedagogicalTrainingResource::collection($this->whenLoaded('pedagogical_trainings')),
-            'activity_formation_trainings' => ActivityFormationTrainingResource::collection($this->whenLoaded('activity_formation_trainings')),
+            'activity_formation_trainings' => ActivityFormationTrainingResource::collection($this->whenLoaded('activityFormationTrainings')),
             'internationalizations' => InternationalizationResource::collection($this->whenLoaded('internationalizations')),
             'activity_generals' => ActivityGeneralResource::collection($this->whenLoaded('activity_generals')),
             'periodsThroughCourses' => PeriodResource::collection($this->whenLoaded('periodsThroughCourses')),

@@ -74,7 +74,6 @@ Route::apiResource('formation-trainings', ActivityFormationTrainingController::c
 Route::post('/collaborators/{collaborator}/assign-course', [CollaboratorController::class, 'assignCourse'])->name('api.v1.collaborators.assign-course');
 Route::post('/collaborators/{collaborator}/assign-activity', [CollaboratorController::class, 'assignActivity'])->name('api.v1.collaborators.assign-activity');
 
-
 Route::get('/collaborators/{userId}/period-details/{periodId}', [CollaboratorController::class, 'getHistoryCollaborator'])->name('api.v1.collaborators.period-details');
 Route::get('/collaborators/{userId}/period-details-admin', [CollaboratorController::class, 'getHistoryCollaboratorAdmin'])->name('api.v1.collaborators.period-details');
 

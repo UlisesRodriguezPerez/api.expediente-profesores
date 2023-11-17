@@ -17,7 +17,7 @@ class ActivityFormationTrainingResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'university_name' => $this->university_name,
+            'university_name' => $this->university,
             'academic_degree' => $this->academic_degree,
             'start_year' => $this->start_year,
             'end_year' => $this->end_year,

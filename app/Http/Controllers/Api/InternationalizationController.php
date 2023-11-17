@@ -7,6 +7,11 @@ use App\Models\Internationalization;
 use App\Http\Requests\StoreInternationalizationRequest;
 use App\Http\Requests\UpdateInternationalizationRequest;
 use App\Http\Resources\InternationalizationResource;
+use App\Models\Period;
+use App\Models\User;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class InternationalizationController extends Controller 
 {
@@ -62,7 +67,7 @@ public function store(StoreInternationalizationRequest $request)
         info('currentPeriod' . $currentPeriod);
 
 
-        $collaborator->internationalization()->attach($internationalization->id, ['period_id' => $currentPeriod->id]);
+        $collaborator->internationalizations()->attach($internationalization->id, ['period_id' => $currentPeriod->id]);
 
         return InternationalizationResource::make($internationalization);
     });

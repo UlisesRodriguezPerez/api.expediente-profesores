@@ -14,17 +14,18 @@ class Collaborator extends Model
     protected $fillable = ['user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id'];
 
     protected $allowIncluded = [
-        'user', 'position', 'category', 'appointment', 'degree', 'campus',
+        'user', 'user.name', 'user.last_name', 'user.second_last_name', 'position', 'category', 'appointment', 'degree', 'campus',
         'periods', 'created_activities', 'involved_activities', 'publications',
         'work_units_and_additional_courses', 'workloads', 'workloads.period', 'workloads.period.courses',
         'workloads.periodsThroughWorkloads', 'workloads.period.technicalTrainings',
         'courses', 'courses.periods', 'technicalTrainings', 'pedagogical_trainings',
-        'activity_formation_trainings', 'internationalizations', 'activity_generals',
-        'periodsThroughCourses', 'allActivities', 'workloads.period.allActivities'
+        'activityFormationTrainings', 'internationalizations', 'activity_generals',
+        'periodsThroughCourses', 'allActivities', 'workloads.period.allActivities',
+
 
     ];
 
-    protected $allowFilter = ['id', 'user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id', 'user.id'];
+    protected $allowFilter = ['id', 'user_id', 'position_id', 'category_id', 'appointment_id', 'degree_id', 'campus_id', 'user.id', 'user.name', 'user.last_name', 'user.second_last_name'];
 
     public function user()
     {
