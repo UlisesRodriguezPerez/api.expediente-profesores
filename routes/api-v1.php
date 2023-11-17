@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ActivityGeneralController;
 use App\Http\Controllers\Api\ActivityFormationTrainingController;
 use App\Http\Controllers\Api\AcademicDegreeController;
 use App\Http\Controllers\Api\ActivityController;
@@ -70,6 +71,7 @@ Route::apiResource('workloads', WorkloadController::class);
 Route::apiResource('users', UserController::class)->names('api.v1.users');
 Route::apiResource('courses', CourseController::class)->names('api.v1.courses');
 Route::apiResource('formation-trainings', ActivityFormationTrainingController::class)->names('api.v1.formation-trainings');
+Route::apiResource('general-activities', ActivityGeneralController::class)->names('api.v1.general-activities');
 
 Route::post('/collaborators/{collaborator}/assign-course', [CollaboratorController::class, 'assignCourse'])->name('api.v1.collaborators.assign-course');
 Route::post('/collaborators/{collaborator}/assign-activity', [CollaboratorController::class, 'assignActivity'])->name('api.v1.collaborators.assign-activity');

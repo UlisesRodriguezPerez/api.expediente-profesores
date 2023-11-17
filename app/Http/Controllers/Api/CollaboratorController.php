@@ -43,6 +43,8 @@ class CollaboratorController extends Controller
 
     public function assignCourse(Request $request, Collaborator $collaborator)
     {
+
+        info('request' . json_encode($request->all()));
         $validatedData = $request->validate([
             'course_id' => 'required|exists:courses,id',
             'period_id' => 'required|exists:periods,id'
@@ -53,7 +55,7 @@ class CollaboratorController extends Controller
 
         $collaborator->courses()->attach($courseId, ['period_id' => $periodId]);
 
-        return CollaboratorResource::make($collaborator);
+        return CollaboratorResource::make($collaborator)->with('message', 'Curso asignado correctamente.');
     }
 
     public function assignActivity(Request $request, Collaborator $collaborator)

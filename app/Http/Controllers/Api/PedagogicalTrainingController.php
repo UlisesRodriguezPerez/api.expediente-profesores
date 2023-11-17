@@ -28,6 +28,7 @@ class PedagogicalTrainingController extends Controller
 
     public function store(StorePedagogicalTrainingRequest $request)
     {
+        info('request' . json_encode($request->all()));
         DB::transaction(function () use ($request) {
             $pedagogicalTraining = new PedagogicalTraining();
             $pedagogicalTraining->name = $request->name;
