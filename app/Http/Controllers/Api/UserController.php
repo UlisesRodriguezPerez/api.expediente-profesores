@@ -7,9 +7,12 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Mail\RecoveryPassword;
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -103,4 +106,17 @@ class UserController extends Controller
         $user->delete();
         return UserResource::make($user);
     }
+
+    public function recoveryPassword($email) {
+        $user = User::where('email', $email)->first();
+        if ($user) {
+            $password = Str::random(8);
+            $user->password = Hash::make($password);
+            $user->save();
+            Mail::to($user->email)->send(new RecoveryPassword($user, $password));
+            return response()->json(['message' => 'Se ha enviado un correo con la nueva contraseña'], 200);
+        } else {
+            return response()->json(['message' => 'No se ha encontrado el usuario'], 404);
+        }
+    } 
 }
