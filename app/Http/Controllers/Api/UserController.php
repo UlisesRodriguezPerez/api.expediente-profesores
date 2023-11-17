@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Mail\RecoveryPassword;
 use App\Models\Role;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -120,4 +121,26 @@ class UserController extends Controller
             return response()->json(['message' => 'No se ha encontrado el usuario'], 404);
         }
     } 
+
+    public function resetPassword(Request $request) {
+        info('reset password');
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        info('reset password s2');
+
+        $user = User::find($request->user_id);
+
+        if ($user) {
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return response()->json(['message' => 'Se ha cambiado la contraseña'], 200);
+        } else {
+            return response()->json(['message' => 'No se ha encontrado el usuario'], 404);
+        }
+
+        return response()->json(['message' => 'No se ha encontrado el usuario'], 404);
+    }
 }

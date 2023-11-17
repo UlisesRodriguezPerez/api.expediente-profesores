@@ -78,3 +78,4 @@ Route::get('/collaborators/{userId}/period-details/{periodId}', [CollaboratorCon
 Route::get('/collaborators/{userId}/period-details-admin', [CollaboratorController::class, 'getHistoryCollaboratorAdmin'])->name('api.v1.collaborators.period-details');
 
 Route::post('users/{userEmail}/recovery-password', [UserController::class, 'recoveryPassword'])->name('api.v1.users.recovery-password');
+Route::post('users/reset-password', [UserController::class, 'resetPassword'])->name('api.v1.users.reset-password');
