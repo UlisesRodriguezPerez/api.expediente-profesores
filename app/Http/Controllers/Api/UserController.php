@@ -108,6 +108,7 @@ class UserController extends Controller
     }
 
     public function recoveryPassword($email) {
+        info('recovery password');
         $user = User::where('email', $email)->first();
         if ($user) {
             $password = Str::random(8);
