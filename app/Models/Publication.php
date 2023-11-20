@@ -17,7 +17,6 @@ class Publication extends Model
         'name',
         'coauthors',
         'objectives',
-        'goals',
         'dissemination_medium',
         'ORCID'
     ];
@@ -28,7 +27,6 @@ class Publication extends Model
         'name',
         'coauthors',
         'objectives',
-        'goals',
         'dissemination_medium',
         'ORCID',
         'collaborator_id',
